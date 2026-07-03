@@ -1,2 +1,25 @@
-# learn_xyz_template-project
-Learn XYZ styled GitHub Repo Template
+# learn_build_agent_docs_skill-project
+
+learn_build_agent_docs_skill is an Agent Skill designed to help coding agents discover, organize, and learn from the official documentation of other AI coding agents.
+
+Modern coding agents evolve quickly. Their commands, configuration formats, built-in tools, permission models, extension systems, and recommended workflows may change frequently. Static knowledge embedded in a prompt, tutorial, or model training dataset can therefore become incomplete or outdated. This skill addresses that problem by providing a repeatable workflow for locating authoritative documentation, understanding its structure, identifying the most relevant pages, and turning that information into a practical documentation skill that an agent can use during future tasks.
+
+The project is built around a simple principle: when an agent needs to understand another tool, it should rely on the tool’s current official documentation rather than assumptions, outdated examples, or unofficial summaries.
+
+Instead of manually copying documentation into a large prompt, learn_build_agent_docs_skill teaches the agent how to discover the documentation dynamically. It can identify official documentation sources, map important sections, follow relevant links, extract operational knowledge, and organize the results into a reusable Agent Skill. The generated skill can then help answer questions about installation, authentication, configuration, commands, workflows, automation, troubleshooting, and advanced usage.
+
+The current version supports three documentation targets:
+
+* claude-code-docs for Anthropic Claude Code
+* antigravity-docs for Google Gemini
+* codex-docs for OpenAI Codex and GPT-based coding workflows
+
+Each target follows the same general methodology while preserving the terminology, documentation structure, and product-specific behavior of the original platform. This makes the project easier to maintain and extend without forcing all coding agents into a single generic documentation format.
+
+The goal is not to create a permanent copy of every documentation page. Instead, the goal is to build a reliable discovery and learning process. Documentation URLs, page structures, commands, and features may change over time, so the skill prioritizes source verification, official references, and reproducible discovery steps. When possible, it should distinguish between stable concepts and version-sensitive details.
+
+This project is useful for developers who work with multiple coding agents, educators who teach AI-assisted programming, teams that want standardized internal guidance, and Agent Skill authors who need a scalable way to package official product knowledge.
+
+It can also serve as a reference implementation for building documentation-oriented skills for other tools. The same approach can be extended to programming frameworks, cloud platforms, developer tools, databases, command-line applications, SDKs, and APIs.
+
+In summary, learn_build_agent_docs_skill provides a structured way to transform official documentation into reusable agent capability. It helps coding agents learn how a tool actually works, locate the right source when information changes, and produce more accurate, grounded, and maintainable answers.
