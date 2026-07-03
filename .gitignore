@@ -1,5 +1,5 @@
 # User Settings
-learn_xyz_template.egg-info/
+learn_build_agent_docs_skill.egg-info/
 docs/source/**/index.md
 .claude/skills/lesson-smith*
 .claude/claude-code-message*

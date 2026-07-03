@@ -20,7 +20,7 @@
             "Write(./README-cn.md)",
             "Write(./TICKET.md)",
             "Write(./CLAUDE.md)",
-            "Write(learn_xyz_template/**/*.py)",
+            "Write(learn_build_agent_docs_skill/**/*.py)",
             "Write(tests/**/*.py)",
             "Write(scripts/**/*.py)",
             "Read(========== Bash Section ==========)",
