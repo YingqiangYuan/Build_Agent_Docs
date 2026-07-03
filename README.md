@@ -8,13 +8,14 @@ The project is built around a simple principle: when an agent needs to understan
 
 Instead of manually copying documentation into a large prompt, learn_build_agent_docs_skill teaches the agent how to discover the documentation dynamically. It can identify official documentation sources, map important sections, follow relevant links, extract operational knowledge, and organize the results into a reusable Agent Skill. The generated skill can then help answer questions about installation, authentication, configuration, commands, workflows, automation, troubleshooting, and advanced usage.
 
-The current version supports three documentation targets:
+Two documentation-target skills are currently built:
 
-* claude-code-docs for Anthropic Claude Code
-* antigravity-docs for Google Gemini
-* codex-docs for OpenAI Codex and GPT-based coding workflows
+* `claude-code-docs` — for Anthropic Claude Code (CLI, Agent SDK, hooks, MCP, skills, plugins, settings, subagents, admin). Anthropic API questions are deferred to the separate `claude-api` skill.
+* `codex-docs` — for OpenAI Codex (CLI, IDE extension, app, cloud, sandboxing, skills, MCP, configuration, enterprise, integrations). Scoped to the Codex coding agent only; the general OpenAI API is out of scope.
 
-Each target follows the same general methodology while preserving the terminology, documentation structure, and product-specific behavior of the original platform. This makes the project easier to maintain and extend without forcing all coding agents into a single generic documentation format.
+A third target for Google Gemini (antigravity) is planned but not yet built.
+
+Both built skills share the same design: they lazy-load the platform's official documentation index (`llms.txt`), pick the most relevant page(s) by description, and fetch raw Markdown on demand — reading in small batches of 1–3 pages, evaluating whether that's enough, and continuing up to a 9-page cap before asking the user whether to keep going. Each target follows this common methodology while preserving the terminology, documentation structure, and product-specific behavior of the original platform. This makes the project easier to maintain and extend without forcing all coding agents into a single generic documentation format.
 
 The goal is not to create a permanent copy of every documentation page. Instead, the goal is to build a reliable discovery and learning process. Documentation URLs, page structures, commands, and features may change over time, so the skill prioritizes source verification, official references, and reproducible discovery steps. When possible, it should distinguish between stable concepts and version-sensitive details.
 
