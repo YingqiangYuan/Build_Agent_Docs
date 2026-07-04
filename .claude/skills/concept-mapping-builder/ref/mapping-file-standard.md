@@ -165,9 +165,18 @@ exist precisely because the tools change often and training data goes stale.
 
 The `Sources` section at the foot of each file records what was read, so a
 later maintainer can re verify without redoing the discovery. List the doc pages
-per tool as title and URL. If a fact could not be confirmed in the docs, do not
-launder it into a confident claim. Either leave the cell honest with a short
-`unconfirmed` note, or omit the row.
+per tool as title and URL, and the URL must be the fetchable raw `.md` source
+that the doc skill actually retrieved, never a human facing rendered page. For
+Claude Code and Codex the `.md` twin is the page URL with a `.md` suffix, so
+`https://code.claude.com/docs/en/memory.md` and
+`https://developers.openai.com/codex/config-reference.md` are correct. Antigravity
+is the trap: its docs site is a client rendered single page app, so the SPA path
+`https://antigravity.google/docs/ide/rules` is not fetchable. The real source is
+the `/assets/docs/....md` twin listed in the `docs-manifest.json`, for example
+`https://antigravity.google/assets/docs/editor/ide-rules.md`. Always record the
+`/assets/docs/....md` form for Antigravity. If a fact could not be confirmed in
+the docs, do not launder it into a confident claim. Either leave the cell honest
+with a short `unconfirmed` note, or omit the row.
 
 When a tool genuinely has no equivalent for an aspect, write `No equivalent` in
 that cell with a few words of context, never a blank. When a tool has no

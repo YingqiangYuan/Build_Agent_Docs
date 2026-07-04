@@ -14,5 +14,17 @@ the detail files follow, live in the `concept-mapping-builder` skill at
 generated from the detail files and is not a place where new facts first appear.
 When a concept below disagrees with its detail file, the detail file is correct.
 
-No concepts have been mapped yet. Use `concept-mapping-builder` to author the
-first detail file, which will add its section here.
+## 1. Project prompt
+
+The persistent project instruction file an agent loads at the start of every
+session. Claude Code and Codex each read one canonical file, while Antigravity
+has no single always-on file and spreads the role across a global file and a
+project rules directory.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `CLAUDE.md` at repo root or `.claude/` |
+| Codex | `AGENTS.md` at repo root |
+| Antigravity | `.agents/rules/*.md` plus global `~/.gemini/GEMINI.md` |
+
+Detail: [01-project-prompt.md](01-project-prompt.md)
