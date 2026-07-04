@@ -99,3 +99,21 @@ stdout for flow control.
 | Antigravity | `hooks.json` in `.agents/` or `~/.gemini/config/` |
 
 Detail: [05-hooks.md](05-hooks.md)
+
+---
+
+## 6. MCP servers
+
+External Model Context Protocol servers that add tools, resources, and prompts.
+All three implement the same protocol; Claude Code and Antigravity use a JSON
+`mcpServers` object while Codex uses TOML tables, and the remote server field
+differs (`url`, `url`, and `serverUrl`), which is the usual porting break. Each
+exposes a `/mcp` command and OAuth login.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `.mcp.json` (project), `~/.claude.json` (local and user) |
+| Codex | `[mcp_servers.NAME]` in `.codex/config.toml` |
+| Antigravity | `.agents/mcp_config.json`, global `~/.gemini/config/mcp_config.json` |
+
+Detail: [06-mcp-servers.md](06-mcp-servers.md)
