@@ -497,16 +497,16 @@ def process(text: str) -> str:
     return "\n".join(new_lines)
 
 
-def lint_file(path: Path, check_only: bool = False) -> bool:
+def lint_file(input_path: Path, output_path: Path) -> bool:
     """
-    读取一个 Markdown 文件，应用标点规则，原地写回（类似 lint --fix）
+    读取一个 Markdown 文件，应用标点规则，写到 output_path
 
-    :param path: 目标 .md 文件路径
-    :param check_only: 若为 True，只检查不写回
+    :param input_path: 输入文件路径
+    :param output_path: 输出文件路径（等于 input_path 时即原地覆盖）
 
-    :return: 若文件内容会发生变化则返回 True，否则返回 False
+    :return: 若规范化后的内容和输入不同则返回 True，否则返回 False
     """
-    original = path.read_text(encoding="utf-8")
+    original = input_path.read_text(encoding="utf-8")
     # splitlines() 会丢弃行尾换行，这里保留文件末尾是否有换行的信息
     trailing_newline = original.endswith("\n")
     processed = process(original)
@@ -514,50 +514,156 @@ def lint_file(path: Path, check_only: bool = False) -> bool:
         processed += "\n"
 
     changed = processed != original
-    if changed and not check_only:
-        path.write_text(processed, encoding="utf-8")
+    output_path.write_text(processed, encoding="utf-8")
     return changed
+
+
+def check_file(input_path: Path) -> bool:
+    """
+    只检查一个 Markdown 文件是否符合规范，不写入任何文件
+
+    :param input_path: 输入文件路径
+
+    :return: 若文件需要修改则返回 True，否则返回 False
+    """
+    original = input_path.read_text(encoding="utf-8")
+    trailing_newline = original.endswith("\n")
+    processed = process(original)
+    if trailing_newline and not processed.endswith("\n"):
+        processed += "\n"
+    return processed != original
+
+
+def _run_file(input_path: Path, output_path: Path | None, check: bool) -> int:
+    """
+    执行 file 子命令：处理单个文件
+
+    :param input_path: 输入文件路径
+    :param output_path: 可选的输出文件路径（None 表示原地覆盖）
+    :param check: 是否只检查不写入
+
+    :return: 进程退出码（0 成功；--check 且需要修改时 1；输入不是文件时 2）
+    """
+    if not input_path.is_file():
+        print(f"error: not a file: {input_path}")
+        return 2
+
+    if check:
+        if output_path is not None:
+            print("note: --check is set, ignoring output path")
+        changed = check_file(input_path)
+        print(f"{'would reformat' if changed else 'ok'}: {input_path}")
+        return 1 if changed else 0
+
+    target = output_path if output_path is not None else input_path
+    changed = lint_file(input_path, target)
+    if target == input_path:
+        print(f"{'reformatted' if changed else 'ok'}: {input_path}")
+    else:
+        print(f"wrote: {target} (from {input_path})")
+    return 0
+
+
+def _run_batch(inputs: list[str], check: bool) -> int:
+    """
+    执行 batch 子命令：循环处理多个文件，每个都原地覆盖（或只检查）
+
+    批量模式没有单独的输出路径参数，因为多个输入无法对应一个输出；
+    每个文件各自原地处理，本质上就是对 file 单文件逻辑的一个循环。
+
+    :param inputs: 输入文件路径列表
+    :param check: 是否只检查不写入
+
+    :return: 进程退出码（有文件缺失返回 2；--check 且任一文件需要修改返回 1；否则 0）
+    """
+    any_missing = False
+    any_changed = False
+    for name in inputs:
+        path = Path(name)
+        if not path.is_file():
+            print(f"skip (not a file): {path}")
+            any_missing = True
+            continue
+        if check:
+            changed = check_file(path)
+            print(f"{'would reformat' if changed else 'ok'}: {path}")
+        else:
+            changed = lint_file(path, path)
+            print(f"{'reformatted' if changed else 'ok'}: {path}")
+        any_changed = any_changed or changed
+
+    if any_missing:
+        return 2
+    if check and any_changed:
+        return 1
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     """
-    命令行入口：把中文标点规范化为英文标点，原地修改 .md 文件
+    命令行入口：把中文标点规范化为英文标点
+
+    采用子命令模式：
+
+    - file 子命令处理单个文件。第 1 个位置参数是输入文件，默认原地覆盖；
+      第 2 个可选位置参数是输出文件，写到别处而不动输入。
+    - batch 子命令处理多个文件。位置参数是一串输入文件，每个都原地覆盖。
+
+    两个子命令都支持 --check：只检查不写任何文件，需要修改时返回码为 1。
+    file 模式下带 --check 会忽略输出路径。
 
     :param argv: 命令行参数（默认读取 sys.argv）
-    :return: 进程退出码（0 表示成功；--check 模式下若有文件需要修改返回 1）
+    :return: 进程退出码
     """
     parser = argparse.ArgumentParser(
-        description="Normalize Chinese punctuation to English in Markdown files (in place).",
+        description="Normalize Chinese punctuation to English in Markdown files.",
     )
-    parser.add_argument(
-        "files",
-        nargs="+",
-        help="One or more .md files to lint in place.",
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    file_parser = subparsers.add_parser(
+        "file",
+        help="Process a single file (optionally to a different output path).",
     )
-    parser.add_argument(
+    file_parser.add_argument(
+        "input",
+        help="Input .md file. Overwritten in place unless an output path is given.",
+    )
+    file_parser.add_argument(
+        "output",
+        nargs="?",
+        default=None,
+        help="Optional output path. Write here instead of overwriting the input. "
+             "Ignored when --check is set.",
+    )
+    file_parser.add_argument(
         "--check",
         action="store_true",
-        help="Report files that would change without modifying them (exit 1 if any).",
+        help="Only check, do not write any file (exit 1 if the input would change).",
     )
+
+    batch_parser = subparsers.add_parser(
+        "batch",
+        help="Process many files, each overwritten in place.",
+    )
+    batch_parser.add_argument(
+        "inputs",
+        nargs="+",
+        help="One or more .md files. Each is overwritten in place.",
+    )
+    batch_parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Only check, do not write any file (exit 1 if any input would change).",
+    )
+
     args = parser.parse_args(argv)
 
-    any_changed = False
-    for name in args.files:
-        path = Path(name)
-        if not path.is_file():
-            print(f"skip (not a file): {path}")
-            continue
-        changed = lint_file(path, check_only=args.check)
-        if changed:
-            any_changed = True
-            status = "would reformat" if args.check else "reformatted"
-            print(f"{status}: {path}")
-        else:
-            print(f"ok: {path}")
-
-    if args.check and any_changed:
-        return 1
-    return 0
+    if args.command == "file":
+        output = Path(args.output) if args.output is not None else None
+        return _run_file(Path(args.input), output, args.check)
+    if args.command == "batch":
+        return _run_batch(args.inputs, args.check)
+    parser.error(f"unknown command: {args.command}")  # pragma: no cover
 
 
 if __name__ == "__main__":
