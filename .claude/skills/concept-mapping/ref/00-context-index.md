@@ -28,3 +28,20 @@ project rules directory.
 | Antigravity | `.agents/rules/*.md` plus global `~/.gemini/GEMINI.md` |
 
 Detail: [01-project-prompt.md](01-project-prompt.md)
+
+---
+
+## 2. Project settings
+
+The project level configuration that controls model, permissions, MCP servers,
+and related behavior. Claude Code and Codex each keep one committed config file
+per scope, while the Antigravity CLI keeps its settings in one user level file
+and has no project level settings file.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `.claude/settings.json` (plus `.claude/settings.local.json`) |
+| Codex | `.codex/config.toml` in the repo |
+| Antigravity | `~/.gemini/antigravity-cli/settings.json`; no project file |
+
+Detail: [02-project-settings.md](02-project-settings.md)

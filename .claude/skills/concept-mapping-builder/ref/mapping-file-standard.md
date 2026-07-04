@@ -41,6 +41,16 @@ are described by how they realize that same concept, or by the fact that they do
 not realize it at all. This keeps the vocabulary stable and stops the knowledge
 base from splintering into three parallel glossaries.
 
+Each column maps the tool's command line interface as the canonical surface. All
+three tools ship a CLI, and the CLI configuration is the common denominator, so
+the knowledge base compares CLI against CLI and does not mix in editor panels.
+Where a tool also has an IDE or other GUI, treat its settings as compatible with
+and derived from the CLI configuration, and mention the GUI only when it diverges
+from the CLI or expresses something the CLI cannot. This matters most for
+Antigravity, which ships an IDE, a CLI, and an SDK: map the Antigravity CLI, and
+read the CLI docs, not only the general or IDE pages. When the CLI docs are thin
+on a point, mark it `unconfirmed` rather than substituting IDE panel behavior.
+
 Every comparison table uses the same three columns, in this fixed order:
 
 | Position | Column header | Source of truth |
