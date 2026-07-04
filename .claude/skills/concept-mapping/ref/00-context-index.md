@@ -117,3 +117,39 @@ exposes a `/mcp` command and OAuth login.
 | Antigravity | `.agents/mcp_config.json`, global `~/.gemini/config/mcp_config.json` |
 
 Detail: [06-mcp-servers.md](06-mcp-servers.md)
+
+---
+
+## 7. Subagents
+
+Delegated agents with their own system prompt, tools, and isolated context, for
+focused or parallel work. Claude Code defines them in Markdown and can auto
+delegate, Codex uses TOML files and spawns only when asked, and Antigravity
+bundles them in plugins or defines them at run time and leans on background
+parallel execution. All three isolate context and return a summary.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `.claude/agents/<name>.md` |
+| Codex | `.codex/agents/<name>.toml` |
+| Antigravity | a plugin's `agents/` folder, or the runtime `define_subagent` tool |
+
+Detail: [07-subagents.md](07-subagents.md)
+
+---
+
+## 8. Permissions
+
+Control over whether a tool call runs, prompts, or is blocked, enforced by the
+tool not the model. Claude Code and Antigravity share one allow, ask, deny map
+with a deny over ask over allow order and a `verb(target)` rule grammar, while
+Codex splits the decision across a sandbox mode, an approval policy, permission
+profiles, and command rules.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `permissions` in `.claude/settings.json` |
+| Codex | `approval_policy` and `sandbox_mode` in `.codex/config.toml` |
+| Antigravity | `permissions` in `~/.gemini/antigravity-cli/settings.json` |
+
+Detail: [08-permissions.md](08-permissions.md)
