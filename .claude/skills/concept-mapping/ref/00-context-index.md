@@ -80,3 +80,22 @@ documents no separate mechanism at all, since a skill compiles directly into a
 | Antigravity | a skill compiles into `/<name>`; no separate command mechanism |
 
 Detail: [04-custom-commands.md](04-custom-commands.md)
+
+---
+
+## 5. Hooks
+
+Commands that run automatically at lifecycle events such as before or after a
+tool call, for deterministic automation and gating. All three share the core
+tool events but differ on config location, event count, and control mechanism.
+Codex closely mirrors the Claude Code protocol (exit code plus JSON on stdin),
+while Antigravity uses a separate `hooks.json`, only five events, and JSON on
+stdout for flow control.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `hooks` key in `.claude/settings.json` |
+| Codex | `[hooks]` in `.codex/config.toml` or `hooks.json` |
+| Antigravity | `hooks.json` in `.agents/` or `~/.gemini/config/` |
+
+Detail: [05-hooks.md](05-hooks.md)
