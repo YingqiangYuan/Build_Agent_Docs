@@ -45,3 +45,38 @@ and has no project level settings file.
 | Antigravity | `~/.gemini/antigravity-cli/settings.json`; no project file |
 
 Detail: [02-project-settings.md](02-project-settings.md)
+
+---
+
+## 3. Skills
+
+Reusable capability packages defined by a `SKILL.md` file with YAML frontmatter,
+loaded on demand and triggered explicitly or by description match. The three
+tools converge on the same entry file and contract; Codex and Antigravity share
+the tool neutral `.agents/skills/` path, while Claude Code uses `.claude/skills/`.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `.claude/skills/<name>/SKILL.md` |
+| Codex | `.agents/skills/<name>/SKILL.md` |
+| Antigravity | `.agents/skills/<name>/SKILL.md` |
+
+Detail: [03-skills.md](03-skills.md)
+
+---
+
+## 4. Custom commands
+
+User defined slash commands that expand a trigger into a saved prompt or
+procedure. The concept has collapsed into skills: Claude Code merged its command
+files into skills, Codex deprecated custom prompts for skills, and Antigravity
+documents no separate mechanism at all, since a skill compiles directly into a
+`/name` command. Antigravity workflows are a distinct multi step primitive.
+
+| Tool | Primary file or location |
+|---|---|
+| Claude Code | `.claude/commands/*.md` (legacy, merged into skills) |
+| Codex | `~/.codex/prompts/*.md` (deprecated, use skills) |
+| Antigravity | a skill compiles into `/<name>`; no separate command mechanism |
+
+Detail: [04-custom-commands.md](04-custom-commands.md)
