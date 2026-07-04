@@ -37,10 +37,10 @@ A project prompt often pulls in other files so a large instruction set stays mod
 | Dimension | Claude Code | Codex | Antigravity |
 |---|---|---|---|
 | Import syntax | `@path/to/file`, usable inline anywhere | No equivalent; split content across nested `AGENTS.md` files | `@filename` inside a rule file |
-| Path resolution | relative to the importing file; absolute paths and `~` supported | not applicable | relative to the rule file; absolute paths fall back to workspace relative |
+| Path resolution | relative to the importing file; absolute paths and `~` supported | not applicable | a non absolute path resolves relative to the repository; an absolute path is used as is |
 | Nesting depth | up to 4 hops | not applicable | unconfirmed |
 | Code block handling | `@` inside code spans and fences is left literal | not applicable | unconfirmed |
-| Porting-in notes | convert any include mechanism into `@` imports, and wrap a literal `@` in backticks | there is no import, so inline the referenced text or move it into a nested `AGENTS.md` | `@` works inside rule files, but verify absolute paths since they fall back to workspace relative |
+| Porting-in notes | convert any include mechanism into `@` imports, and wrap a literal `@` in backticks | there is no import, so inline the referenced text or move it into a nested `AGENTS.md` | `@` works inside rule files, but a non absolute path resolves from the repo root, not from the rule file |
 
 ---
 
@@ -88,6 +88,4 @@ Beyond the shared file mechanics, each tool adds distinctive capabilities around
 
 **Antigravity**
 
-- IDE Rules: https://antigravity.google/assets/docs/editor/ide-rules.md
 - Rules and Workflows: https://antigravity.google/assets/docs/antigravity-2-0/rules-workflows.md
-- IDE Workflows: https://antigravity.google/assets/docs/editor/ide-workflows.md
