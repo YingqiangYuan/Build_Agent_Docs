@@ -2,7 +2,7 @@
 
 ## 1. Finishing the Job on Layers Two and Three
 
-[The first article](../01-why-this-repo-matters/README.md) introduced a three-layer teacher model, and [the second article](../02-building-the-first-expert/README.md) only dug into layer one — using [`claude-code-docs`](../../.claude/skills/claude-code-docs/SKILL.md) as the single example, it walked through the full cycle of discovery, verification, coding, and testing. Layer one solves this problem: given a tool that keeps changing, how do you build an expert who always reads the latest docs instead of reciting stale answers.
+[The first article](../01-why-this-repo-matters/README.md) introduced this repo's three-layer architecture — three tiers of expert-teachers stacked on each other — and [the second article](../02-building-the-first-expert/README.md) only dug into layer one — using [`claude-code-docs`](../../.claude/skills/claude-code-docs/SKILL.md) as the single example, it walked through the full cycle of discovery, verification, coding, and testing. Layer one solves this problem: given a tool that keeps changing, how do you build an expert who always reads the latest docs instead of reciting stale answers.
 
 But the moment you've built three experts, a new problem shows up immediately: each of the three experts guards its own turf, and none of them knows whether what it says lines up with what the other two are saying. This article lays out the remaining two layers in full: how layer two teaches the three experts to cross-check each other, and how layer three actually puts that cross-checking to work in real migrations. These two layers are meatier than layer one, so this article runs longer than the previous ones.
 
@@ -110,9 +110,9 @@ Information flows upward exactly once, and it's always a fresh question, never a
 
 ---
 
-## 11. Looking Back: The Same Pattern, Repeated Three Times
+## 11. Looking Back: The Same Pattern, Four Times — the "1 + 3"
 
-Each of the three layers faces a different concrete problem — layer one races against how fast docs change, layer two races against combinatorial explosion, layer three races against the risk of manual maintenance drifting out of sync — but the underlying approach to solving them is the same move, repeated three times: don't build the final answer directly; build a mechanism that keeps producing that answer correctly, and have that mechanism always pull the latest state from the layer below it fresh, rather than copying it once and baking it in. A diagram makes this easier to see:
+Each of the three layers faces a different concrete problem — layer one races against how fast docs change, layer two races against combinatorial explosion, layer three races against the risk of manual maintenance drifting out of sync — but the underlying approach to solving them is the same move, repeated three times inside the layers and a fourth time across all three — the "1 + 3" flagged back in [Part 1](../01-why-this-repo-matters/README.md): don't build the final answer directly; build a mechanism that keeps producing that answer correctly, and have that mechanism always pull the latest state from the layer below it fresh, rather than copying it once and baking it in. A diagram makes this easier to see:
 
 ```mermaid
 flowchart LR
