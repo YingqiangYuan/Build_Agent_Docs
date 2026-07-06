@@ -23,7 +23,7 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
    *Why it lands:* it's not a screenshot or a slide — it's a real file that runs,
    and the answer is provably current. This is the single strongest beat.
 2. **The three-layer generator pattern.** Show that `write-agent-skill`,
-   `concept-mapping-builder`, and `port-skill-generator` are each a *generator*
+   `coding-agent-concept-mapping-builder`, and `port-coding-agent-skill-generator` are each a *generator*
    that produced many outputs. *Why it lands:* it demonstrates architectural
    judgment (build the mechanism, not the answer), which is what senior
    interviewers actually probe for.
@@ -47,11 +47,11 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
 
 ### 15-minute version
 1–4. The 5-minute version above (Layer 1).
-5. **Open** `.claude/skills/concept-mapping/ref/03-skills.md`. **Say:** "Layer 2
+5. **Open** `.claude/skills/coding-agent-concept-mapping/ref/03-skills.md`. **Say:** "Layer 2
    lines up the same concept across all three tools — and every cell was sourced
    by asking the Layer-1 experts, never from memory. Look at the `Porting-in
    notes` row: it's keyed by destination, which keeps it O(N) instead of O(N²)."
-6. **Open** `.claude/skills/port-skill-generator/ref/port-skill-template.md`.
+6. **Open** `.claude/skills/port-coding-agent-skill-generator/ref/port-skill-template.md`.
    **Say:** "Layer 3's 12 migration skills aren't hand-written — they're stamped
    from this template. Change behavior once, regenerate all twelve."
 7. **Run** a `port-*` doer + `-checker` on a sample project; **open** the
@@ -79,12 +79,12 @@ demo skill and mirrors the publish deletes in `07-publish-checklist.md`.
 | Path | Why it's off-limits |
 | :--- | :--- |
 | `examples/` (entire folder) | The rehearsal script + mental-model tutorial. `examples/03` § 7 explicitly says never show it to an interviewer. |
-| `docs/` **except** `01-project-overview.md`, `02-docs-skills.md`, `03-concept-mapping.md`, `04-port-skills.md` | The four English overviews are showable; everything else (the `-cn.md` files and `docs/learn-this-project/`) is teaching material. |
+| `docs/` **except** `01-project-overview.md`, `02-docs-skills.md`, `03-coding-agent-concept-mapping.md`, `04-port-skills.md` | The four English overviews are showable; everything else (the `-cn.md` files and `docs/learn-this-project/`) is teaching material. |
 | `docs/learn-this-project/` | This mentor's-analysis KB — the clearest "this came from a course" tell. |
 | `.claude/skills/learn-this-project-{absorb,elevate,quiz,interview,demo,publish}/` | The six generated learning skills — teaching scaffolding, not the product. |
 | `README-ORIGINAL.md` | An old README kept around; showing two READMEs looks unfinished. |
 | Any `README-cn.md` (root or nested) | Locale/tutorial counterpart — a teaching tell. |
-| `tmp/` | Scratch: an old pre-standard concept-mapping draft, experimental `port-*-gemini-cli` prototypes, a punctuation script. Half-finished, would confuse. |
+| `tmp/` | Scratch: an old pre-standard coding-agent-concept-mapping draft, experimental `port-*-gemini-cli` prototypes, a punctuation script. Half-finished, would confuse. |
 | `.venv/`, `.idea/`, `learn_build_agent_docs_skill.egg-info/`, any `.DS_Store` | Hygiene/IDE junk — nothing to gain, looks sloppy. |
 
 > **Note on the meta-skill:** `.claude/skills/lesson-smith-learn-this-project-meta/`

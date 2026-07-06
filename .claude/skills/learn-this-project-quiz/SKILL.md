@@ -67,7 +67,7 @@ After the chosen number of questions:
 **Bank mode** (the default — picks from `04-quiz-bank.md`):
 
 - `random N` — pick N items uniformly at random from the bank.
-- `module <name>` — filter items whose source reference points to that module / component (match against source field). Useful values here: `claude-code-docs`, `antigravity-docs`, `concept-mapping`, `port-skill-generator`, `examples`.
+- `module <name>` — filter items whose source reference points to that module / component (match against source field). Useful values here: `claude-code-docs`, `antigravity-docs`, `coding-agent-concept-mapping`, `port-coding-agent-skill-generator`, `examples`.
 - `knowhow` — filter by tag `knowhow` only.
 - `progressive` — start with easy, escalate. After 3 correct in a row, bump difficulty. After 2 wrong in a row, drop difficulty.
 

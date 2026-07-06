@@ -77,20 +77,20 @@ python3 .claude/skills/antigravity-docs-index-builder/scripts/build_manifest.py 
 
 ### Layer 2 — query the concept map
 ```
-/concept-mapping how do skills map across the three tools?
-/concept-mapping hooks
+/coding-agent-concept-mapping how do skills map across the three tools?
+/coding-agent-concept-mapping hooks
 ```
-Answers come from `.claude/skills/concept-mapping/ref/` (index → detail file).
+Answers come from `.claude/skills/coding-agent-concept-mapping/ref/` (index → detail file).
 To **change** the knowledge base, use the builder instead of editing by hand:
 ```
-/concept-mapping-builder 05-hooks       # refresh one concept file, then the index
-/concept-mapping-builder subagents      # add/refresh a concept
+/coding-agent-concept-mapping-builder 05-hooks       # refresh one concept file, then the index
+/coding-agent-concept-mapping-builder subagents      # add/refresh a concept
 ```
 
 ### Layer 3 — run or audit a migration
 ```
 # generate/refresh a doer+checker pair (explicit invocation only):
-/port-skill-generator cc to cdx          # -> port-claude-code-to-codex (+ -checker)
+/port-coding-agent-skill-generator cc to cdx          # -> port-claude-code-to-codex (+ -checker)
 
 # run an actual migration on a target project:
 /port-claude-code-to-codex /path/to/some/project
@@ -130,9 +130,9 @@ item in `03-elevation-roadmap.md`.)
 | `antigravity-docs` returns 404 on a page | Stale `docs-manifest.json` | `/antigravity-docs-index-builder --force` |
 | Index-builder: "could not find `main-<hash>.js`" | Antigravity app shell markup changed | Patch `find_bundle_name` in `scripts/build_manifest.py` |
 | Index-builder: "DOCS_STRUCTURE not found" | Bundle record shape changed | Patch `parse_structure` in the same script |
-| A port skill uses a concept that isn't migrated | Concept list read at runtime from Layer 2 | Add/refresh the concept via `/concept-mapping-builder`; the port skills pick it up automatically |
+| A port skill uses a concept that isn't migrated | Concept list read at runtime from Layer 2 | Add/refresh the concept via `/coding-agent-concept-mapping-builder`; the port skills pick it up automatically |
 | A doc expert answers from memory / invents a URL | Skipped the index read | Re-run; the `SKILL.md` rule is "index first, never invent URLs" |
-| Generated port skill still shows `{{PLACEHOLDER}}` | Generator substitution missed | Re-run `/port-skill-generator <src> to <tgt>` |
+| Generated port skill still shows `{{PLACEHOLDER}}` | Generator substitution missed | Re-run `/port-coding-agent-skill-generator <src> to <tgt>` |
 
 ## Where to look when something breaks
 
@@ -141,7 +141,7 @@ item in `03-elevation-roadmap.md`.)
 - **Antigravity manifest** — `.claude/skills/antigravity-docs/references/docs-manifest.json`
   (`_meta` records the source bundle + build date); regenerate with the builder.
 - **Concept facts** — the `Sources` section at the bottom of each
-  `concept-mapping/ref/0X-*.md` tells you which doc page a claim came from.
+  `coding-agent-concept-mapping/ref/0X-*.md` tells you which doc page a claim came from.
 - **Port behavior** — never debug a generated `port-*/SKILL.md`; read
-  `port-skill-generator/ref/port-skill-template.md` (or `checker-skill-template.md`).
+  `port-coding-agent-skill-generator/ref/port-skill-template.md` (or `checker-skill-template.md`).
 - **Migration audit output** — `tmp/review-port-*.md` inside the target project.

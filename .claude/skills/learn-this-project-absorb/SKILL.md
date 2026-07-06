@@ -84,7 +84,7 @@ The user has been working and isn't sure what to do next. Help them sequence.
 
 1. Ask one calibration question if not already clear: "What have you covered so far, and what's your end-goal (interview prep / portfolio / curiosity / a specific extension)?"
 2. Cross-reference against the inventory and the runbook — what hasn't been touched yet, and which item gives the best leverage for the user's goal.
-3. Recommend **one** next thing, with a concrete first action ("open `.claude/skills/port-skill-generator/ref/port-skill-template.md` and trace how one placeholder resolves"). Optionally name a fallback.
+3. Recommend **one** next thing, with a concrete first action ("open `.claude/skills/port-coding-agent-skill-generator/ref/port-skill-template.md` and trace how one placeholder resolves"). Optionally name a fallback.
 4. Offer: "Want me to switch into Context-dive once you've done that?"
 
 ## Build mode — help the user extend the project

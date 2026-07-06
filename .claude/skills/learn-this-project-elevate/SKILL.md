@@ -44,7 +44,7 @@ For each upgrade area the user picks:
 7. **Converge to a concrete starter deliverable.** This step is the bridge to actually building the upgrade. Don't let the user leave with only an abstract direction.
    - Narrow the upgrade down to the **smallest first iteration that produces something runnable**. Examples grounded in this repo:
      - For "add tests" → "a `tests/test_no_placeholders.py` that globs `.claude/skills/port-*/SKILL.md` and asserts none still contain an unsubstituted template placeholder (a literal double-brace marker)".
-     - For "standard-conformance" → "a `tests/test_concept_files.py` asserting every `concept-mapping/ref/0X-*.md` has a `Porting-in notes` row and a `Sources` section".
+     - For "standard-conformance" → "a `tests/test_concept_files.py` asserting every `coding-agent-concept-mapping/ref/0X-*.md` has a `Porting-in notes` row and a `Sources` section".
      - For "drift-detection" → "a `.github/workflows/index-canary.yml` that fetches the three `llms.txt` indexes and diffs entry counts against a committed snapshot".
    - State the deliverable in one sentence the user can copy. Be specific about file paths and the success criterion.
    - **Confirm with the user**: "Does that feel like a real first step you want to build, or want to narrow further?"

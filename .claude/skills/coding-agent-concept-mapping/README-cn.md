@@ -1,6 +1,6 @@
 # Concept Mapping Skill
 
-这个 Skill 是一个跨工具的概念映射知识库,回答同一个项目级配置概念在 Claude Code、Codex、Antigravity 三个 AI 编程工具里分别长什么样,以及把一套配置从一个工具搬到另一个工具时要注意什么。它是给读者查阅用的那一层;这些文件怎么写出来、怎么维护,归隔壁的 `concept-mapping-builder` Skill 管。
+这个 Skill 是一个跨工具的概念映射知识库,回答同一个项目级配置概念在 Claude Code、Codex、Antigravity 三个 AI 编程工具里分别长什么样,以及把一套配置从一个工具搬到另一个工具时要注意什么。它是给读者查阅用的那一层;这些文件怎么写出来、怎么维护,归隔壁的 `coding-agent-concept-mapping-builder` Skill 管。
 
 ---
 
@@ -24,16 +24,16 @@
 
 ## 3. 它和 builder 的关系
 
-这个 Skill 只负责读和答,不负责写。知识库里的文件由 `concept-mapping-builder` 撰写和维护,而 builder 的每一条事实都通过 `claude-code-docs`、`codex-docs`、`antigravity-docs` 三个文档 Skill 从当前官方文档取证。所以这里的内容不靠记忆,而是落在可核查的官方来源上。
+这个 Skill 只负责读和答,不负责写。知识库里的文件由 `coding-agent-concept-mapping-builder` 撰写和维护,而 builder 的每一条事实都通过 `claude-code-docs`、`codex-docs`、`antigravity-docs` 三个文档 Skill 从当前官方文档取证。所以这里的内容不靠记忆,而是落在可核查的官方来源上。
 
-要新增一个概念、按最新文档刷新某个概念、或者修正某处映射,都走 `concept-mapping-builder`,这样所有文件才会保持一致的结构和口径。不要在这里手工添加新事实。
+要新增一个概念、按最新文档刷新某个概念、或者修正某处映射,都走 `coding-agent-concept-mapping-builder`,这样所有文件才会保持一致的结构和口径。不要在这里手工添加新事实。
 
 ---
 
 ## 4. 目录结构
 
 ```text
-concept-mapping/
+coding-agent-concept-mapping/
 ├── SKILL.md              入口, 定义先读索引再按需加载详情的用法
 ├── README-cn.md          本文件
 └── ref/

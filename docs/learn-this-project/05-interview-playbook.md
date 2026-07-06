@@ -66,7 +66,7 @@ follow-ups (`examples/03` § 5).
 
 - **Q1.3 — "Explain the three layers and how information moves between them."**
   - *Model answer.* Layer 1 = doc experts (read live docs fresh). Layer 2 =
-    `concept-mapping` (aligns one concept across all three tools, every cell
+    `coding-agent-concept-mapping` (aligns one concept across all three tools, every cell
     sourced by asking Layer 1). Layer 3 = 12 `port-*` skills (migrate config,
     reading Layer 2's concept list at runtime). Information flows **up exactly once
     per run as a fresh question** — nothing is cached-then-welded — so a doc change
@@ -87,8 +87,8 @@ follow-ups (`examples/03` § 5).
 - **Q1.5 — "What's the single design idea that repeats in all three layers?"**
   - *Model answer.* "Don't build the answer — build a mechanism that keeps
     producing it, and pull the layer below fresh." Layer 1: `write-agent-skill`
-    then the experts. Layer 2: `concept-mapping-builder` then the concept files.
-    Layer 3: `port-skill-generator` then the 12 ports. Generator-then-output, three
+    then the experts. Layer 2: `coding-agent-concept-mapping-builder` then the concept files.
+    Layer 3: `port-coding-agent-skill-generator` then the 12 ports. Generator-then-output, three
     times, nested once more across all three. (`examples/06` § 2–3.)
   - *Follow-ups.* "Where does the recursion stop?" (answer: at the first directly-
     buildable thing toward the end goal.)
@@ -99,7 +99,7 @@ follow-ups (`examples/03` § 5).
 - **Q2.1 — "If you had three more months, what's the first thing you'd add and why?"**
   - *Model answer.* Automated verification — a `tests/` suite asserting every
     generated `port-*/SKILL.md` has zero `{{` placeholders and every
-    `concept-mapping/ref/0X-*.md` matches `mapping-file-standard.md`, plus
+    `coding-agent-concept-mapping/ref/0X-*.md` matches `mapping-file-standard.md`, plus
     recorded-fixture replay of `llms.txt` so page-selection logic is testable
     offline. Today validation is manual Q&A, so this is the biggest credibility
     jump. (`03-elevation-roadmap.md` § 1.)
@@ -148,7 +148,7 @@ follow-ups (`examples/03` § 5).
     skill was possible but generation keeps each skill independently discoverable
     and inspectable while still sharing behavior via templates. *Tradeoff:*
     generation adds a build step; hand-writing adds drift risk; one parametric skill
-    hides the surface. (`examples/04` § 8; `port-skill-generator/SKILL.md`.)
+    hides the surface. (`examples/04` § 8; `port-coding-agent-skill-generator/SKILL.md`.)
 
 ## Round 4 — problems hit / debugging
 
@@ -164,7 +164,7 @@ follow-ups (`examples/03` § 5).
 - **Q4.2 — "A generated port skill still has `{{PLACEHOLDER}}` in it. What went wrong and how do you fix it, correctly?"**
   - *Model answer.* A substitution was missed during generation. The *wrong* fix is
     editing the generated file — that reintroduces the drift generation exists to
-    prevent. The right fix is re-running `/port-skill-generator <src> to <tgt>`,
+    prevent. The right fix is re-running `/port-coding-agent-skill-generator <src> to <tgt>`,
     and adding the invariant to the test suite (`grep -R "{{"` must be empty).
     (`02-runbook.md`; `03-elevation-roadmap.md` § 1.)
 

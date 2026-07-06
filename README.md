@@ -28,16 +28,16 @@ The core isn't Python code — it's a set of Markdown skills under `.claude/skil
 ├── codex-docs/                      # Layer 1: Codex documentation expert
 ├── antigravity-docs/                # Layer 1: Antigravity expert (reads a local manifest)
 ├── antigravity-docs-index-builder/  # rebuilds antigravity-docs' manifest
-├── concept-mapping-builder/         # Layer 2 "generator" + the mapping-file standard
-├── concept-mapping/                 # Layer 2: cross-tool concept alignment KB (01–08)
-├── port-skill-generator/            # Layer 3 "generator": port + checker templates
+├── coding-agent-concept-mapping-builder/         # Layer 2 "generator" + the mapping-file standard
+├── coding-agent-concept-mapping/                 # Layer 2: cross-tool concept alignment KB (01–08)
+├── port-coding-agent-skill-generator/            # Layer 3 "generator": port + checker templates
 └── port-<src>-to-<tgt>[-checker]/   # Layer 3: 6 directions x (doer + checker) = 12 skills
 
 docs/learn-this-project/             # teaching analysis docs (01 inventory → 07 publish, 7 files)
 examples/                            # six-part interview story + the "recursive decomposition" model
 ```
 
-Every layer follows the same move: a *generator* comes first (left), a concrete output comes second (right) — `write-agent-skill` → the three doc experts, `concept-mapping-builder` → the concept files, `port-skill-generator` → the 12 migration skills. Information only ever flows up once, always as a fresh question, never as a cached old answer.
+Every layer follows the same move: a *generator* comes first (left), a concrete output comes second (right) — `write-agent-skill` → the three doc experts, `coding-agent-concept-mapping-builder` → the concept files, `port-coding-agent-skill-generator` → the 12 migration skills. Information only ever flows up once, always as a fresh question, never as a cached old answer.
 
 ## The core idea — discover, verify, encode, test
 

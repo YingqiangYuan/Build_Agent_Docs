@@ -12,7 +12,7 @@
 
 Claude Code, Codex, Antigravity 各自有自己独有的地方, 这是没办法的事, 别的工具用不了, 也没必要用得了. 但抛开这些独有的部分, 三者之间有大量的概念其实是共通的: project 级别的提示文件, 设置, skills, 自定义命令, hooks, MCP servers, subagents, permissions, 这些概念三边都有, 只是长得不完全一样. 看不见这层共通性, 会实实在在地踩到两个坑, 而这两个坑, 正好对应二, 三层各自真正要解决的问题.
 
-第一个坑, 跟学习有关. 三个工具都在不停地加新功能, 出新文档, 如果每一个都要从头单独吃透, 学习成本会摊得很薄很累. 真正想要的做法是, 把主要精力砸在吃透一个工具上, 也就是第一篇, 第二篇已经做完的事, 剩下两个工具, 靠着这层共通性, 用类比的方式快速学会, 而且不是那种 "哦它好像也有这个东西" 的模糊印象, 而是精确知道具体该怎么做. 这正是第二层, `concept-mapping`, 真正的原动力: 它是一台学习加速器, 让在一个工具上练出来的深度, 能精确地转译到另外两个工具上, 而不需要把三份深度掌握各自从头练一遍.
+第一个坑, 跟学习有关. 三个工具都在不停地加新功能, 出新文档, 如果每一个都要从头单独吃透, 学习成本会摊得很薄很累. 真正想要的做法是, 把主要精力砸在吃透一个工具上, 也就是第一篇, 第二篇已经做完的事, 剩下两个工具, 靠着这层共通性, 用类比的方式快速学会, 而且不是那种 "哦它好像也有这个东西" 的模糊印象, 而是精确知道具体该怎么做. 这正是第二层, `coding-agent-concept-mapping`, 真正的原动力: 它是一台学习加速器, 让在一个工具上练出来的深度, 能精确地转译到另外两个工具上, 而不需要把三份深度掌握各自从头练一遍.
 
 第二个坑, 跟企业里的真实利益有关, 这是第三层真正要解决的问题, 分量比听起来更重. 一个团队如果把工作流深度绑死在某一个 agent 特有的写法上, 换平台的时候就会撞上 vendor lock-in, 想搬家却搬不动, 因为所有东西都长在这一个工具的专有格式里. 而如果这套配置本来就是可迁移的, 能批量, 低成本地搬到别的工具上, 就完全不怕被锁定, 换平台从一件大工程变成一次随时可以执行的操作. 这才是第三层真正的分量所在, 也是这整件事真正的企业级价值.
 
@@ -30,7 +30,7 @@ Claude Code, Codex, Antigravity 各自有自己独有的地方, 这是没办法�
 
 ## 4. 从一个具体概念看对齐是怎么做的, 以 skill 为例
 
-对齐关系写在 [`concept-mapping`](../../.claude/skills/concept-mapping/SKILL.md) 这个知识库里, 每个概念一份文件. 拿 skill 举例, [`03-skills.md`](../../.claude/skills/concept-mapping/ref/03-skills.md) 开头是一段定义, 说清楚 skill 是什么, 三个工具是不是都有这个概念, 然后往下拆成几个方面, 每个方面一张表. 摘一段感受一下它的样子:
+对齐关系写在 [`coding-agent-concept-mapping`](../../.claude/skills/coding-agent-concept-mapping/SKILL.md) 这个知识库里, 每个概念一份文件. 拿 skill 举例, [`03-skills.md`](../../.claude/skills/coding-agent-concept-mapping/ref/03-skills.md) 开头是一段定义, 说清楚 skill 是什么, 三个工具是不是都有这个概念, 然后往下拆成几个方面, 每个方面一张表. 摘一段感受一下它的样子:
 
 ```markdown
 ## 1. Directory structure and location
@@ -62,9 +62,9 @@ neutral `.agents/skills/`.
 
 `03-skills.md` 这份文件不是有人坐下来直接写出来的. 写这些概念文件不是一次性的活, 概念会新增, 工具文档会更新, 而且这个知识库以后不止 skill 一个概念, project prompt, settings, hooks, MCP servers, subagents, permissions 迟早都要各来一份, 每一份都要长得像同一个人写的. 如果没有一份写死的标准, 这么多概念文件写下来, 迟早会有一份的表格列序, 术语口径跟别的不一样.
 
-所以顺序是反过来的: 先造出一个专门负责维护这份知识库的 agent, [`concept-mapping-builder`](../../.claude/skills/concept-mapping-builder/SKILL.md), 它遵守一份写死的标准, [`mapping-file-standard.md`](../../.claude/skills/concept-mapping-builder/ref/mapping-file-standard.md), 规定了每份概念文件的形状, 表格的列序, 术语的口径, 以及最重要的一条: 每一条结论都要能在三个专家那里查到出处, 不能凭训练记忆写. 有了这个 builder, 才轮到它去写 `03-skills.md`, 以及以后每一份新的概念文件, 这跟第一层先有 [`write-agent-skill`](../../.claude/skills/write-agent-skill/SKILL.md) 这个会写 Skill 的方法, 再用它写出 `claude-code-docs`, 是同一个先后顺序.
+所以顺序是反过来的: 先造出一个专门负责维护这份知识库的 agent, [`coding-agent-concept-mapping-builder`](../../.claude/skills/coding-agent-concept-mapping-builder/SKILL.md), 它遵守一份写死的标准, [`mapping-file-standard.md`](../../.claude/skills/coding-agent-concept-mapping-builder/ref/mapping-file-standard.md), 规定了每份概念文件的形状, 表格的列序, 术语的口径, 以及最重要的一条: 每一条结论都要能在三个专家那里查到出处, 不能凭训练记忆写. 有了这个 builder, 才轮到它去写 `03-skills.md`, 以及以后每一份新的概念文件, 这跟第一层先有 [`write-agent-skill`](../../.claude/skills/write-agent-skill/SKILL.md) 这个会写 Skill 的方法, 再用它写出 `claude-code-docs`, 是同一个先后顺序.
 
-维护顺序也是固定的, 先改具体的概念文件, 后改汇总索引 [`00-context-index.md`](../../.claude/skills/concept-mapping/ref/00-context-index.md), 索引只是一份用来导航的短清单, 从来不是新事实第一次出现的地方. 而真正在回答问题时用的, 是只读的 [`concept-mapping`](../../.claude/skills/concept-mapping/SKILL.md), 它的动作很简单: 先读索引找到该看哪份概念文件, 再打开那份文件, 照着里面已经核实过的内容回答, 自己不编新结论.
+维护顺序也是固定的, 先改具体的概念文件, 后改汇总索引 [`00-context-index.md`](../../.claude/skills/coding-agent-concept-mapping/ref/00-context-index.md), 索引只是一份用来导航的短清单, 从来不是新事实第一次出现的地方. 而真正在回答问题时用的, 是只读的 [`coding-agent-concept-mapping`](../../.claude/skills/coding-agent-concept-mapping/SKILL.md), 它的动作很简单: 先读索引找到该看哪份概念文件, 再打开那份文件, 照着里面已经核实过的内容回答, 自己不编新结论.
 
 ---
 
@@ -78,9 +78,9 @@ neutral `.agents/skills/`.
 
 ## 8. 先造生成器, 再造十二个具体的 port agent
 
-十二份几乎同构, 只是换了源和目标名字的文件, 手写手改是一条很容易走样的路, 改了这一份忘了改另一份, 十二份很快就会互相不一致. 这里再一次出现前两层都出现过的顺序: 不是先写出十二个具体的迁移 Skill, 而是先造一个专门负责生产它们的 agent, [`port-skill-generator`](../../.claude/skills/port-skill-generator/SKILL.md), 它手上握着两份模板, 一份 [`port-skill-template.md`](../../.claude/skills/port-skill-generator/ref/port-skill-template.md), 一份 [`checker-skill-template.md`](../../.claude/skills/port-skill-generator/ref/checker-skill-template.md), 模板里用 `{{SOURCE_NAME}}`, `{{TARGET_NAME}}` 这样的占位符代替具体的工具名. 有了这个生成器, 才轮到它去套出十二个真正能跑的 port Skill, 跟第一层先有 `write-agent-skill` 再造出 `claude-code-docs`, 第二层先有 `concept-mapping-builder` 再造出 `03-skills.md`, 是同一个套路重复了第三次.
+十二份几乎同构, 只是换了源和目标名字的文件, 手写手改是一条很容易走样的路, 改了这一份忘了改另一份, 十二份很快就会互相不一致. 这里再一次出现前两层都出现过的顺序: 不是先写出十二个具体的迁移 Skill, 而是先造一个专门负责生产它们的 agent, [`port-coding-agent-skill-generator`](../../.claude/skills/port-coding-agent-skill-generator/SKILL.md), 它手上握着两份模板, 一份 [`port-skill-template.md`](../../.claude/skills/port-coding-agent-skill-generator/ref/port-skill-template.md), 一份 [`checker-skill-template.md`](../../.claude/skills/port-coding-agent-skill-generator/ref/checker-skill-template.md), 模板里用 `{{SOURCE_NAME}}`, `{{TARGET_NAME}}` 这样的占位符代替具体的工具名. 有了这个生成器, 才轮到它去套出十二个真正能跑的 port Skill, 跟第一层先有 `write-agent-skill` 再造出 `claude-code-docs`, 第二层先有 `coding-agent-concept-mapping-builder` 再造出 `03-skills.md`, 是同一个套路重复了第三次.
 
-开发者敲一条 `/port-skill-generator cc to cdx`, 生成器解析出源是 Claude Code, 目标是 Codex, 算出所有占位符该替换成什么, 把两份模板套出两个真正的 Skill 文件. 想改所有迁移工具共有的行为, 只改这两份模板, 重新跑一遍生成器就够了, 不会有某一个方向悄悄跟其他十一个走样. 三个工具的名单是写死在生成器里的, 因为加一个新 agent 是很少见的事, 但这份写死的名单只管工具叫什么, 不管要迁移哪些概念.
+开发者敲一条 `/port-coding-agent-skill-generator cc to cdx`, 生成器解析出源是 Claude Code, 目标是 Codex, 算出所有占位符该替换成什么, 把两份模板套出两个真正的 Skill 文件. 想改所有迁移工具共有的行为, 只改这两份模板, 重新跑一遍生成器就够了, 不会有某一个方向悄悄跟其他十一个走样. 三个工具的名单是写死在生成器里的, 因为加一个新 agent 是很少见的事, 但这份写死的名单只管工具叫什么, 不管要迁移哪些概念.
 
 ---
 
@@ -122,11 +122,11 @@ A1["write-agent-skill<br/> 会写 Skill 的方法"] --> A2["claude-code-docs 等
 end
 subgraph L2["第二层, 概念对齐"]
 direction TB
-B1["concept-mapping-builder<br/> 加一份对齐标准"] --> B2["03-skills.md 等<br/> 具体的对齐文件"]
+B1["coding-agent-concept-mapping-builder<br/> 加一份对齐标准"] --> B2["03-skills.md 等<br/> 具体的对齐文件"]
 end
 subgraph L3["第三层, 迁移执行"]
 direction TB
-C1["port-skill-generator<br/> 加两份模板"] --> C2["十二个具体的<br/> 迁移 Skill"]
+C1["port-coding-agent-skill-generator<br/> 加两份模板"] --> C2["十二个具体的<br/> 迁移 Skill"]
 end
 Goal["终点, 企业级跨 agent<br/> 迁移能力, 不被锁定"]
 L1 -->| 造出| L2

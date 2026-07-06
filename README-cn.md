@@ -28,16 +28,16 @@
 ├── codex-docs/                      # Layer 1: Codex 文档专家
 ├── antigravity-docs/                # Layer 1: Antigravity 文档专家 (读本地 manifest)
 ├── antigravity-docs-index-builder/  # 重建 antigravity-docs 的 manifest
-├── concept-mapping-builder/         # Layer 2 的"生成器" + mapping-file 标准
-├── concept-mapping/                 # Layer 2: 跨工具概念对齐知识库 (01-08)
-├── port-skill-generator/            # Layer 3 的"生成器": port + checker 两个模板
+├── coding-agent-concept-mapping-builder/         # Layer 2 的"生成器" + mapping-file 标准
+├── coding-agent-concept-mapping/                 # Layer 2: 跨工具概念对齐知识库 (01-08)
+├── port-coding-agent-skill-generator/            # Layer 3 的"生成器": port + checker 两个模板
 └── port-<源>-to-<目标>[-checker]/   # Layer 3: 6 个方向 x (执行 + 审计) = 12 个迁移 skill
 
 docs/learn-this-project/             # 教学分析文档 (01 清单 -> 07 发布清单, 共 7 份)
 examples/                            # 六篇面试故事 + "递归拆解"心智模型
 ```
 
-每一层都遵循同一个套路: 先有一个 "生成器" (左), 再产出具体的东西 (右) - `write-agent-skill` -> 三个文档专家, `concept-mapping-builder` -> 概念文件, `port-skill-generator` -> 12 个迁移 skill。信息永远只向上流动一次, 且永远是一个新鲜的提问, 从不缓存旧答案。
+每一层都遵循同一个套路: 先有一个 "生成器" (左), 再产出具体的东西 (右) - `write-agent-skill` -> 三个文档专家, `coding-agent-concept-mapping-builder` -> 概念文件, `port-coding-agent-skill-generator` -> 12 个迁移 skill。信息永远只向上流动一次, 且永远是一个新鲜的提问, 从不缓存旧答案。
 
 ## 核心思路 - discover, verify, encode, test
 

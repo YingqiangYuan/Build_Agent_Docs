@@ -57,7 +57,7 @@ After intake, summarize: "Got it — `<repo name>` by `<student name>`. Let me s
      examples/
      docs/01-project-overview-cn.md
      docs/02-docs-skills-cn.md
-     docs/03-concept-mapping-cn.md
+     docs/03-coding-agent-concept-mapping-cn.md
      docs/04-port-skills-cn.md
      docs/learn-this-project/
      .claude/skills/*/README-cn.md   (expanded to each match)
@@ -78,7 +78,7 @@ After intake, summarize: "Got it — `<repo name>` by `<student name>`. Let me s
 ### Step 3 — Borderline review
 
 1. Read `07-publish-checklist.md` § 2 (project-specific borderline).
-2. For each entry, ask the user one focused question. Examples for this repo: "`tmp/` holds an old pre-standard concept-mapping draft + an experimental Gemini-CLI port prototype + a punctuation script. Delete all, or keep the Gemini prototype as a 'next step' teaser?"; "the ~13 non-meta `lesson-smith-*` skills are the course-authoring framework — keep them public or trim to a lean product repo?"
+2. For each entry, ask the user one focused question. Examples for this repo: "`tmp/` holds an old pre-standard coding-agent-concept-mapping draft + an experimental Gemini-CLI port prototype + a punctuation script. Delete all, or keep the Gemini prototype as a 'next step' teaser?"; "the ~13 non-meta `lesson-smith-*` skills are the course-authoring framework — keep them public or trim to a lean product repo?"
 3. On `delete`, run `rm`. On `keep`, leave it but flag for Audit's attention.
 4. If the borderline list is `_(none found in this repo)_`, skip this step.
 
@@ -95,8 +95,8 @@ After intake, summarize: "Got it — `<repo name>` by `<student name>`. Let me s
 2. Build the commit plan — 10–15+ commits, dependency-ordered (least-dependent first). For this repo the shape is roughly:
    - C1: root config (`.gitignore`, `mise.toml`, `pyproject.toml`, `uv.lock`)
    - C2–C4: Layer-1 generator (`write-agent-skill`) then the doc experts
-   - C5–C6: Layer-2 (`concept-mapping-builder` then `concept-mapping`)
-   - C7–C8: Layer-3 (`port-skill-generator` then the 12 generated port skills)
+   - C5–C6: Layer-2 (`coding-agent-concept-mapping-builder` then `coding-agent-concept-mapping`)
+   - C7–C8: Layer-3 (`port-coding-agent-skill-generator` then the 12 generated port skills)
    - C(N–1): the English `docs/0X` overviews
    - CN: hand-written `README.md`
 3. **Ask the user before writing**: "Want me to write the commit cheat-sheet to `tmp/publish-commit-plan.md`? You'll copy-paste from it; I won't run any `git` commands."
@@ -151,7 +151,7 @@ Assume the reader is a hostile interviewer scanning the repo with the question "
    - **Git ref flags**: `git tag --list` and `git branch --all`. Match against the suspicious-name patterns.
    - **Residual directory flags**: Glob `.claude/skills/learn-this-project-*` and confirm only `lesson-smith-learn-this-project-meta` survives (if at all).
    - **Hygiene flags**: Glob for `.idea/`, `__pycache__/`, `.venv/`, `*.egg-info/`, `.DS_Store`.
-   - **Suspicious symmetry flags**: heuristic — the 12 `port-*/SKILL.md` and the three doc-expert `SKILL.md`s share structure by design (they're template-generated). This is legitimate here; keep the `port-skill-generator` + templates visible so the symmetry is explained rather than suspicious.
+   - **Suspicious symmetry flags**: heuristic — the 12 `port-*/SKILL.md` and the three doc-expert `SKILL.md`s share structure by design (they're template-generated). This is legitimate here; keep the `port-coding-agent-skill-generator` + templates visible so the symmetry is explained rather than suspicious.
 3. Group findings by severity:
 
    ```

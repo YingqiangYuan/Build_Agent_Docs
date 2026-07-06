@@ -1,6 +1,6 @@
 # Concept Mapping Builder Skill
 
-这个 Skill 是概念映射知识库的「作者」。它负责把 Claude Code、Codex、Antigravity 三个 AI 编程工具里的项目级配置概念,横向对齐成一组结构一致、可核查的对照文档,并持续维护它们。真正回答问题、给读者查阅的是隔壁的 `concept-mapping` Skill,而那些文件是怎么写出来、怎么保持更新的,就归这个 builder 管。
+这个 Skill 是概念映射知识库的「作者」。它负责把 Claude Code、Codex、Antigravity 三个 AI 编程工具里的项目级配置概念,横向对齐成一组结构一致、可核查的对照文档,并持续维护它们。真正回答问题、给读者查阅的是隔壁的 `coding-agent-concept-mapping` Skill,而那些文件是怎么写出来、怎么保持更新的,就归这个 builder 管。
 
 ---
 
@@ -14,7 +14,7 @@
 
 ## 2. 它维护哪些文件
 
-所有产物都落在隔壁 `concept-mapping` Skill 的 `ref/` 目录下,分两类。
+所有产物都落在隔壁 `coding-agent-concept-mapping` Skill 的 `ref/` 目录下,分两类。
 
 一类是每个概念一份的详情文件,命名为 `XY-concept-name.md`,`XY` 是两位数编号,概念名用小写短横线连接。这是真正承载内容的地方,也是每次先写的对象。
 

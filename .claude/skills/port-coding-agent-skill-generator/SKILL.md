@@ -1,6 +1,6 @@
 ---
-name: port-skill-generator
-description: Generate or update the paired port and checker skills that migrate a project's configuration from one AI coding agent to another. Use when you need to (re)create a port-<source>-to-<target> doer skill and its port-<source>-to-<target>-checker review skill, for example when invoked as /port-skill-generator cc to cdx or /port-skill-generator claude code to codex.
+name: port-coding-agent-skill-generator
+description: Generate or update the paired port and checker skills that migrate a project's configuration from one AI coding agent to another. Use when you need to (re)create a port-<source>-to-<target> doer skill and its port-<source>-to-<target>-checker review skill, for example when invoked as /port-coding-agent-skill-generator cc to cdx or /port-coding-agent-skill-generator claude code to codex.
 argument-hint: <source> to <target>
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit
@@ -39,7 +39,7 @@ Draw a sharp line between two kinds of knowledge:
   lookup skills) is small and stable. Adding a fourth agent is a deliberate,
   rare event. It is fine to resolve it from the table below. The authoritative
   roster and the fixed tool column order live in the concept mapping standard at
-  `../concept-mapping-builder/ref/mapping-file-standard.md` (section 2); keep the
+  `../coding-agent-concept-mapping-builder/ref/mapping-file-standard.md` (section 2); keep the
   table below in sync with it, and if an agent is missing here, that standard is
   the source of truth.
 - **The concept list** (project prompt, settings, skills, commands, hooks, MCP
@@ -114,11 +114,11 @@ future changes belong in the templates here, followed by a regenerate.
   the templates. Never diverge a single generated skill by hand.
 - **Do not hardcode concepts.** Neither this generator nor the templates carry a
   concept list. The generated skills read the concept roster from
-  `concept-mapping/ref/00-context-index.md` every run.
+  `coding-agent-concept-mapping/ref/00-context-index.md` every run.
 - **Validate the direction.** Both sides must resolve to distinct known agents.
   Refuse a same agent or unknown agent direction.
 - **Overwrite to update.** Regenerating a pair replaces its two `SKILL.md` files;
   that is the intended update path.
 - **Keep the roster in sync.** The agent table mirrors
-  `../concept-mapping-builder/ref/mapping-file-standard.md` section 2. If a new
+  `../coding-agent-concept-mapping-builder/ref/mapping-file-standard.md` section 2. If a new
   agent is added there, add its row here before generating its pairs.

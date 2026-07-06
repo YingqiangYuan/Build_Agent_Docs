@@ -40,7 +40,7 @@ doc anchor — and (b) *articulate the underlying reason* — 知其然知其所
 
 - **Q-002** [tag: runbook, difficulty: medium]
   - **Q:** There's no `tests/` directory. If someone asks "how do you know the skills actually work?", how do you answer, and what would a first real test assert?
-  - **A:** Today validation is **manual black-box Q&A** — you ask a doc expert about pages it has never seen and confirm it cites a real source (`examples/02/README.md` § 6; `02-runbook.md` § Tests). The cheapest real test asserts structural invariants: every generated `port-*/SKILL.md` contains zero `{{` placeholders, and every `concept-mapping/ref/0X-*.md` has a `Porting-in notes` row and a `Sources` section. This matters because the payload is generated Markdown, so drift shows up as broken structure, not a stack trace. Recorded-fixture replay of `llms.txt` (see `03-elevation-roadmap.md` § 1) is the next rung up.
+  - **A:** Today validation is **manual black-box Q&A** — you ask a doc expert about pages it has never seen and confirm it cites a real source (`examples/02/README.md` § 6; `02-runbook.md` § Tests). The cheapest real test asserts structural invariants: every generated `port-*/SKILL.md` contains zero `{{` placeholders, and every `coding-agent-concept-mapping/ref/0X-*.md` has a `Porting-in notes` row and a `Sources` section. This matters because the payload is generated Markdown, so drift shows up as broken structure, not a stack trace. Recorded-fixture replay of `llms.txt` (see `03-elevation-roadmap.md` § 1) is the next rung up.
   - **Source:** `docs/learn-this-project/02-runbook.md`, `docs/learn-this-project/03-elevation-roadmap.md`
 
 - **Q-003** [tag: runbook, difficulty: medium]
@@ -93,34 +93,34 @@ doc anchor — and (b) *articulate the underlying reason* — 知其然知其所
 ## Layer 2 — concept alignment
 
 - **Q-012** [tag: knowhow, difficulty: medium]
-  - **Q:** Once you have three doc experts, what problem remains that `concept-mapping` exists to solve? Frame it as a scenario.
-  - **A:** Each expert knows only its own tool; none knows whether its answer lines up with the other two (`examples/04` § 3). If you ask "where do skills live?" three separate times, you get three scattered answers and must stitch them yourself — and the stitched conclusion has nowhere to live, so the next person redoes it. `concept-mapping` records the alignment once, in `ref/0X-*.md`, so the depth you built on one tool transfers by precise analogy. That's the "learning accelerator" motivation in `examples/04` § 2.
-  - **Source:** `examples/04-building-layers-two-and-three/README.md`, `.claude/skills/concept-mapping/SKILL.md`
+  - **Q:** Once you have three doc experts, what problem remains that `coding-agent-concept-mapping` exists to solve? Frame it as a scenario.
+  - **A:** Each expert knows only its own tool; none knows whether its answer lines up with the other two (`examples/04` § 3). If you ask "where do skills live?" three separate times, you get three scattered answers and must stitch them yourself — and the stitched conclusion has nowhere to live, so the next person redoes it. `coding-agent-concept-mapping` records the alignment once, in `ref/0X-*.md`, so the depth you built on one tool transfers by precise analogy. That's the "learning accelerator" motivation in `examples/04` § 2.
+  - **Source:** `examples/04-building-layers-two-and-three/README.md`, `.claude/skills/coding-agent-concept-mapping/SKILL.md`
 
 - **Q-013** [tag: knowhow, difficulty: hard]
   - **Q:** The `Porting-in notes` row is organized *by destination tool*, not *by migration direction*. Walk through why, and what it prevents.
-  - **A:** With three tools there are six pairwise directions; if each dimension spelled out "moving from X to Y", the tables would grow quadratically as tools are added (`examples/04` § 5). Instead each concept table has **one note per tool** answering "what bites when config arrives *at this tool*" — because migration pain lives on the receiving end. Three tools → three cells, and adding a direction never rewrites the row. This O(N)-instead-of-O(N²) trick is defined in `concept-mapping-builder/ref/mapping-file-standard.md` and is the same "reach for a smarter structure" instinct Layer 3 reuses.
-  - **Source:** `examples/04-building-layers-two-and-three/README.md`, `.claude/skills/concept-mapping-builder/ref/mapping-file-standard.md`
+  - **A:** With three tools there are six pairwise directions; if each dimension spelled out "moving from X to Y", the tables would grow quadratically as tools are added (`examples/04` § 5). Instead each concept table has **one note per tool** answering "what bites when config arrives *at this tool*" — because migration pain lives on the receiving end. Three tools → three cells, and adding a direction never rewrites the row. This O(N)-instead-of-O(N²) trick is defined in `coding-agent-concept-mapping-builder/ref/mapping-file-standard.md` and is the same "reach for a smarter structure" instinct Layer 3 reuses.
+  - **Source:** `examples/04-building-layers-two-and-three/README.md`, `.claude/skills/coding-agent-concept-mapping-builder/ref/mapping-file-standard.md`
 
 - **Q-014** [tag: knowhow, difficulty: medium]
   - **Q:** Why is Claude Code always the first/seed column in every concept file, and what would go wrong without a fixed seed?
-  - **A:** The standard makes Claude Code the seed that frames each concept's vocabulary and decomposition; the other two columns describe how they realize the *same* idea or note `No equivalent` (`docs/03-concept-mapping.md`; `mapping-file-standard.md`). Without a fixed anchor, different concept files would name and slice the same idea differently, and the tables would stop being comparable. A consistent seed is what makes the mapping a genuine alignment rather than three parallel glossaries.
-  - **Source:** `docs/learn-this-project/03-concept-mapping.md`, `.claude/skills/concept-mapping-builder/ref/mapping-file-standard.md`
+  - **A:** The standard makes Claude Code the seed that frames each concept's vocabulary and decomposition; the other two columns describe how they realize the *same* idea or note `No equivalent` (`docs/03-coding-agent-concept-mapping.md`; `mapping-file-standard.md`). Without a fixed anchor, different concept files would name and slice the same idea differently, and the tables would stop being comparable. A consistent seed is what makes the mapping a genuine alignment rather than three parallel glossaries.
+  - **Source:** `docs/learn-this-project/03-coding-agent-concept-mapping.md`, `.claude/skills/coding-agent-concept-mapping-builder/ref/mapping-file-standard.md`
 
 - **Q-015** [tag: knowhow, difficulty: medium]
-  - **Q:** `concept-mapping` is read-only and `concept-mapping-builder` does all writing. Why split them, and what's the maintenance order the builder must follow?
-  - **A:** The query-time skill stays read-only so answering can never accidentally invent or mutate facts; all authoring — with its doc-sourcing discipline — lives in the builder (`docs/03-concept-mapping.md`). The builder's fixed order is **detail file first, index second**: update `ref/0X-concept.md`, then regenerate `ref/00-context-index.md`, because the index is just navigation and must never be where a new fact first appears (`examples/04` § 6). Reversing that order would let the index and the detail files disagree.
-  - **Source:** `.claude/skills/concept-mapping-builder/SKILL.md`, `docs/learn-this-project/03-concept-mapping.md`
+  - **Q:** `coding-agent-concept-mapping` is read-only and `coding-agent-concept-mapping-builder` does all writing. Why split them, and what's the maintenance order the builder must follow?
+  - **A:** The query-time skill stays read-only so answering can never accidentally invent or mutate facts; all authoring — with its doc-sourcing discipline — lives in the builder (`docs/03-coding-agent-concept-mapping.md`). The builder's fixed order is **detail file first, index second**: update `ref/0X-concept.md`, then regenerate `ref/00-context-index.md`, because the index is just navigation and must never be where a new fact first appears (`examples/04` § 6). Reversing that order would let the index and the detail files disagree.
+  - **Source:** `.claude/skills/coding-agent-concept-mapping-builder/SKILL.md`, `docs/learn-this-project/03-coding-agent-concept-mapping.md`
 
 - **Q-016** [tag: convention, difficulty: medium]
   - **Q:** The mapping standard forbids blank cells and requires a `Sources` section. What principle do both rules enforce?
   - **A:** Both enforce "never from memory, always grounded" (`mapping-file-standard.md`). A blank cell is ambiguous — did the author not check, or is there genuinely no equivalent? — so the rule requires `No equivalent` + context instead, making absence explicit. The `Sources` section records exactly which doc page each non-obvious claim came from (URLs in raw `.md` form) so any cell can be re-verified later. Together they make the knowledge base auditable rather than trust-me.
-  - **Source:** `.claude/skills/concept-mapping-builder/ref/mapping-file-standard.md`, `.claude/skills/concept-mapping/ref/03-skills.md`
+  - **Source:** `.claude/skills/coding-agent-concept-mapping-builder/ref/mapping-file-standard.md`, `.claude/skills/coding-agent-concept-mapping/ref/03-skills.md`
 
 - **Q-017** [tag: mech, difficulty: medium]
   - **Q:** Trace how a single cell in `03-skills.md` gets its value. Who produces it and against what source?
-  - **A:** `concept-mapping-builder` produces it: for the skills concept it asks `claude-code-docs` for the Claude Code column, `codex-docs` for the Codex column, and `antigravity-docs` for the Antigravity column, then fills the cell and records the doc page in `Sources` (`examples/04` § 4). So the cell's value flows *up* from Layer 1, verified fresh, never written from training memory. This is why a tool changing its docs only requires re-running the builder for that one concept.
-  - **Source:** `.claude/skills/concept-mapping/ref/03-skills.md`, `examples/04-building-layers-two-and-three/README.md`
+  - **A:** `coding-agent-concept-mapping-builder` produces it: for the skills concept it asks `claude-code-docs` for the Claude Code column, `codex-docs` for the Codex column, and `antigravity-docs` for the Antigravity column, then fills the cell and records the doc page in `Sources` (`examples/04` § 4). So the cell's value flows *up* from Layer 1, verified fresh, never written from training memory. This is why a tool changing its docs only requires re-running the builder for that one concept.
+  - **Source:** `.claude/skills/coding-agent-concept-mapping/ref/03-skills.md`, `examples/04-building-layers-two-and-three/README.md`
 
 ## Layer 3 — migration
 
@@ -131,12 +131,12 @@ doc anchor — and (b) *articulate the underlying reason* — 知其然知其所
 
 - **Q-019** [tag: knowhow, difficulty: hard]
   - **Q:** The 12 port skills are generated, not hand-written. Explain the failure this prevents and how the generator is structured to prevent it.
-  - **A:** Twelve near-identical files differing only by source/target names drift the instant you fix one and forget another (`examples/04` § 8). So `port-skill-generator` holds two templates (`ref/port-skill-template.md`, `ref/checker-skill-template.md`) with `{{SOURCE_NAME}}`/`{{TARGET_NAME}}`-style placeholders; running `/port-skill-generator cc to cdx` resolves the names and stamps out both `SKILL.md`s. To change shared behavior you edit a template and regenerate — you never hand-edit a generated file. Same generator-before-output pattern as `write-agent-skill` and `concept-mapping-builder`.
-  - **Source:** `.claude/skills/port-skill-generator/SKILL.md`, `examples/04-building-layers-two-and-three/README.md`
+  - **A:** Twelve near-identical files differing only by source/target names drift the instant you fix one and forget another (`examples/04` § 8). So `port-coding-agent-skill-generator` holds two templates (`ref/port-skill-template.md`, `ref/checker-skill-template.md`) with `{{SOURCE_NAME}}`/`{{TARGET_NAME}}`-style placeholders; running `/port-coding-agent-skill-generator cc to cdx` resolves the names and stamps out both `SKILL.md`s. To change shared behavior you edit a template and regenerate — you never hand-edit a generated file. Same generator-before-output pattern as `write-agent-skill` and `coding-agent-concept-mapping-builder`.
+  - **Source:** `.claude/skills/port-coding-agent-skill-generator/SKILL.md`, `examples/04-building-layers-two-and-three/README.md`
 
 - **Q-020** [tag: knowhow, difficulty: hard]
   - **Q:** The generator hardcodes the *agent roster* but deliberately does *not* hardcode the *concept list*. Walk through why the two lists are treated differently.
-  - **A:** The set of agents is small and stable — adding a fourth tool is a rare event — so baking the name/slug/docs-skill lookup into the generator is fine (`docs/04-port-skills.md`). But the set of portable concepts keeps growing, so the templates never carry a concept list; every generated port/checker skill reads it fresh from `concept-mapping/ref/00-context-index.md` at runtime (`examples/04` § 9). The payoff: adding a new concept updates Layer 2 once and all 12 skills follow automatically, with no file touched.
+  - **A:** The set of agents is small and stable — adding a fourth tool is a rare event — so baking the name/slug/docs-skill lookup into the generator is fine (`docs/04-port-skills.md`). But the set of portable concepts keeps growing, so the templates never carry a concept list; every generated port/checker skill reads it fresh from `coding-agent-concept-mapping/ref/00-context-index.md` at runtime (`examples/04` § 9). The payoff: adding a new concept updates Layer 2 once and all 12 skills follow automatically, with no file touched.
   - **Source:** `docs/learn-this-project/04-port-skills.md`, `examples/04-building-layers-two-and-three/README.md`
 
 - **Q-021** [tag: mech, difficulty: medium]
@@ -147,13 +147,13 @@ doc anchor — and (b) *articulate the underlying reason* — 知其然知其所
 - **Q-022** [tag: knowhow, difficulty: medium]
   - **Q:** A port skill migrates config but "preserves the source". Why keep the source instead of moving it, and what does that imply about the migration's reversibility?
   - **A:** The doer creates/edits the target-tool files *alongside* the existing source files rather than replacing them (`01-knowhow-inventory.md`; port template). Keeping the source means the migration is additive and non-destructive — if the port is wrong, nothing was lost, and you can re-run or audit safely. This is the same "do no harm by default" instinct as the read-only checker: the enterprise value is *portability*, which you undermine if migrating means burning the origin.
-  - **Source:** `docs/learn-this-project/01-knowhow-inventory.md`, `.claude/skills/port-skill-generator/ref/port-skill-template.md`
+  - **Source:** `docs/learn-this-project/01-knowhow-inventory.md`, `.claude/skills/port-coding-agent-skill-generator/ref/port-skill-template.md`
 
 ## The mental model & cross-cutting design
 
 - **Q-023** [tag: knowhow, difficulty: hard]
   - **Q:** The repo repeats one design move in all three layers. State it precisely and give the concrete instance in each layer.
-  - **A:** The move is **"don't build the final answer directly — build a mechanism that keeps producing it, and always pull the layer below fresh"** (`examples/06` § 2). Layer 1: build `write-agent-skill` (the method), then produce `claude-code-docs`. Layer 2: build `concept-mapping-builder` (+ standard), then produce `03-skills.md` et al. Layer 3: build `port-skill-generator` (+ two templates), then stamp the 12 ports (`examples/06` § 3). Each is generator-then-output; the pattern even nests once more across all three layers combined.
+  - **A:** The move is **"don't build the final answer directly — build a mechanism that keeps producing it, and always pull the layer below fresh"** (`examples/06` § 2). Layer 1: build `write-agent-skill` (the method), then produce `claude-code-docs`. Layer 2: build `coding-agent-concept-mapping-builder` (+ standard), then produce `03-skills.md` et al. Layer 3: build `port-coding-agent-skill-generator` (+ two templates), then stamp the 12 ports (`examples/06` § 3). Each is generator-then-output; the pattern even nests once more across all three layers combined.
   - **Source:** `examples/06-the-mental-model-recursive-decomposition/README.md`, `examples/04-building-layers-two-and-three/README.md`
 
 - **Q-024** [tag: knowhow, difficulty: hard]
@@ -172,14 +172,14 @@ doc anchor — and (b) *articulate the underlying reason* — 知其然知其所
   - **Source:** `examples/06-the-mental-model-recursive-decomposition/README.md`, `examples/04-building-layers-two-and-three/README.md`
 
 - **Q-027** [tag: convention, difficulty: medium]
-  - **Q:** Across the repo, skills request narrow `allowed-tools` (e.g. `concept-mapping` gets only `Read`; the checker never gets project-config write). What discipline is this, and why does it matter for a migration tool specifically?
+  - **Q:** Across the repo, skills request narrow `allowed-tools` (e.g. `coding-agent-concept-mapping` gets only `Read`; the checker never gets project-config write). What discipline is this, and why does it matter for a migration tool specifically?
   - **A:** It's deny-by-default least-privilege: a skill gets only the tools its job needs (`01-knowhow-inventory.md` § Conventions). For the checker it's load-bearing — granting it only read + a single report write is what *structurally* prevents it from modifying the project it's auditing, so the doer/checker independence isn't just convention, it's enforced by the tool grant. A read-only query skill that could write could silently corrupt the knowledge base.
-  - **Source:** `docs/learn-this-project/01-knowhow-inventory.md`, `.claude/skills/port-skill-generator/ref/checker-skill-template.md`
+  - **Source:** `docs/learn-this-project/01-knowhow-inventory.md`, `.claude/skills/port-coding-agent-skill-generator/ref/checker-skill-template.md`
 
 - **Q-028** [tag: knowhow, difficulty: medium]
   - **Q:** Why are the three doc experts also mirrored under `.agents/skills/`, and what does that have to do with the concept map?
-  - **A:** `.agents/skills/` is the **tool-neutral** discovery path that Codex and Antigravity read, whereas `.claude/skills/` is Claude Code's path (`01-knowhow-inventory.md` § Supporting; `concept-mapping/ref/03-skills.md`). Mirroring the doc experts there lets other agents load them too, making the experts portable rather than Claude-only. It's a small live demonstration of the very portability the concept map documents and the port skills automate.
-  - **Source:** `docs/learn-this-project/01-knowhow-inventory.md`, `.claude/skills/concept-mapping/ref/03-skills.md`
+  - **A:** `.agents/skills/` is the **tool-neutral** discovery path that Codex and Antigravity read, whereas `.claude/skills/` is Claude Code's path (`01-knowhow-inventory.md` § Supporting; `coding-agent-concept-mapping/ref/03-skills.md`). Mirroring the doc experts there lets other agents load them too, making the experts portable rather than Claude-only. It's a small live demonstration of the very portability the concept map documents and the port skills automate.
+  - **Source:** `docs/learn-this-project/01-knowhow-inventory.md`, `.claude/skills/coding-agent-concept-mapping/ref/03-skills.md`
 
 - **Q-029** [tag: deps, difficulty: medium]
   - **Q:** The project depends on `WebFetch` for the doc experts but drops to `curl`/`urllib` for exactly one job. What does that inconsistency teach about choosing dependencies?

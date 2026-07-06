@@ -78,7 +78,7 @@ Before considering the session complete, walk through the playbook's "Do NOT sho
 
    If any of these are still in the demo version, **stop the rehearsal and tell the user**: "These teaching artifacts must be removed before the demo. Either delete them from the demo version, or rehearse against a sanitized copy you've published to your own GitHub. Otherwise the demo will be detected as a tutorial."
 
-2. **Project-specific items** (from the playbook): for each, read the entry — file path or directory, plus the reason (scratch, half-done feature, credentials, internal notes). For this repo that includes `examples/` (the rehearsal narrative — never show it), the four `docs/*-cn.md` and `docs/learn-this-project/`, `tmp/` (old concept-mapping draft, experimental gemini-cli port prototypes, a punctuation script), and hygiene dirs (`.venv/`, `.idea/`, `*.egg-info/`).
+2. **Project-specific items** (from the playbook): for each, read the entry — file path or directory, plus the reason (scratch, half-done feature, credentials, internal notes). For this repo that includes `examples/` (the rehearsal narrative — never show it), the four `docs/*-cn.md` and `docs/learn-this-project/`, `tmp/` (old coding-agent-concept-mapping draft, experimental gemini-cli port prototypes, a punctuation script), and hygiene dirs (`.venv/`, `.idea/`, `*.egg-info/`).
 
 3. For every entry, ask: "Do you know where this is and how to avoid it during the demo?"
 

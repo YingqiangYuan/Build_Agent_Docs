@@ -9,8 +9,8 @@ comparison and the porting notes.
 
 Concept sections are added in registry order as each detail file is authored.
 The registry that assigns concept numbers, and the format both this index and
-the detail files follow, live in the `concept-mapping-builder` skill at
-`../../concept-mapping-builder/ref/mapping-file-standard.md`. This index is
+the detail files follow, live in the `coding-agent-concept-mapping-builder` skill at
+`../../coding-agent-concept-mapping-builder/ref/mapping-file-standard.md`. This index is
 generated from the detail files and is not a place where new facts first appear.
 When a concept below disagrees with its detail file, the detail file is correct.
 

@@ -16,14 +16,14 @@
 
 把两类知识严格分开:
 
-- **agent 名单** (有哪些 agent, 它们的规范名, slug, 对应的文档查询 skill) 小而稳定, 新增一个 agent 是罕见的大事。所以在 generator 里用一张解析表来认它是可以的。这张表要和概念映射标准 `../concept-mapping-builder/ref/mapping-file-standard.md` 第 2 节的工具列表保持一致, 那里才是权威来源。
-- **概念清单** (project prompt, settings, skills, commands, hooks, MCP, subagents, permissions, 以及以后还会加的) 一直在增长。绝不能把它写死进 generator 或模板。生成出来的 skill 每次运行时, 都从概念映射索引 `concept-mapping/ref/00-context-index.md` 现取。这个索引同时既是「概念清单」, 又是「每个 agent 对应哪个文件/位置」的地图, 所以生成的 skill 拿它当扫描清单和文件映射, 天然不需要硬编码任何概念。
+- **agent 名单** (有哪些 agent, 它们的规范名, slug, 对应的文档查询 skill) 小而稳定, 新增一个 agent 是罕见的大事。所以在 generator 里用一张解析表来认它是可以的。这张表要和概念映射标准 `../coding-agent-concept-mapping-builder/ref/mapping-file-standard.md` 第 2 节的工具列表保持一致, 那里才是权威来源。
+- **概念清单** (project prompt, settings, skills, commands, hooks, MCP, subagents, permissions, 以及以后还会加的) 一直在增长。绝不能把它写死进 generator 或模板。生成出来的 skill 每次运行时, 都从概念映射索引 `coding-agent-concept-mapping/ref/00-context-index.md` 现取。这个索引同时既是「概念清单」, 又是「每个 agent 对应哪个文件/位置」的地图, 所以生成的 skill 拿它当扫描清单和文件映射, 天然不需要硬编码任何概念。
 
 ---
 
 ## 3. 生成出来的两个 skill 各干什么
 
-**执行版 `port-<source>-to-<target>`**: 接收项目路径, 读概念索引拿到清单和文件位置, 在项目里扫源 agent 的配置产物, 对每个命中的概念去读该概念的详情文件 (或调用 `concept-mapping` skill) 理解映射和转入注意事项, 必要时查目标 agent 的 docs skill 核对当前格式, 然后在项目里创建或修改目标 agent 的对应文件。源文件全部保留, 两套配置并存, 不覆盖。带 `disable-model-invocation`, 只能手动触发, 因为它会真的改文件。
+**执行版 `port-<source>-to-<target>`**: 接收项目路径, 读概念索引拿到清单和文件位置, 在项目里扫源 agent 的配置产物, 对每个命中的概念去读该概念的详情文件 (或调用 `coding-agent-concept-mapping` skill) 理解映射和转入注意事项, 必要时查目标 agent 的 docs skill 核对当前格式, 然后在项目里创建或修改目标 agent 的对应文件。源文件全部保留, 两套配置并存, 不覆盖。带 `disable-model-invocation`, 只能手动触发, 因为它会真的改文件。
 
 **审查版 `port-<source>-to-<target>-checker`**: 扫描和映射逻辑和执行版一样, 但只读。它对比源侧和目标侧的现状, 判断每个概念是完整迁移, 部分迁移, 还是缺失, 把缺口, 建议改法, 优先级/影响写成一份结构化报告, 固定输出到项目里的 `tmp/review-port-<source>-to-<target>.md` (存在则覆盖)。除了这份报告文件, 不动项目里任何配置。
 
@@ -32,9 +32,9 @@
 ## 4. 怎么用
 
 ```
-/port-skill-generator cc to cdx
-/port-skill-generator claude code to codex
-/port-skill-generator ag to cc
+/port-coding-agent-skill-generator cc to cdx
+/port-coding-agent-skill-generator claude code to codex
+/port-coding-agent-skill-generator ag to cc
 ```
 
 方向写成 `<source> to <target>`, 两侧都能用缩写 (cc / cdx / ag) 或全名。generator 解析方向, 认领两个 agent, 算出所有占位符, 读两份模板做替换, 分别写到 `.claude/skills/port-<source>-to-<target>/SKILL.md` 和 `.claude/skills/port-<source>-to-<target>-checker/SKILL.md`。已存在就覆盖, 重新生成就是更新这一对 skill 的方式。
@@ -44,7 +44,7 @@
 ## 5. 目录结构
 
 ```text
-port-skill-generator/
+port-coding-agent-skill-generator/
 ├── SKILL.md                          生成流程本体
 ├── README-cn.md                      本文件
 └── ref/

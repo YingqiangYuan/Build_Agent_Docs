@@ -31,7 +31,7 @@ manually. This repo's owner has explicitly confirmed the delete list below.
 - path: docs/02-docs-skills-cn.md
   reason: Locale counterpart; teaching tell.
   detected_by: filename match
-- path: docs/03-concept-mapping-cn.md
+- path: docs/03-coding-agent-concept-mapping-cn.md
   reason: Locale counterpart; teaching tell.
   detected_by: filename match
 - path: docs/04-port-skills-cn.md
@@ -68,11 +68,11 @@ manually. This repo's owner has explicitly confirmed the delete list below.
   detected_by: filename match
 - path: .claude/skills/antigravity-docs-index-builder/README-cn.md
   detected_by: filename match
-- path: .claude/skills/concept-mapping/README-cn.md
+- path: .claude/skills/coding-agent-concept-mapping/README-cn.md
   detected_by: filename match
-- path: .claude/skills/concept-mapping-builder/README-cn.md
+- path: .claude/skills/coding-agent-concept-mapping-builder/README-cn.md
   detected_by: filename match
-- path: .claude/skills/port-skill-generator/README-cn.md
+- path: .claude/skills/port-coding-agent-skill-generator/README-cn.md
   detected_by: filename match
 - path: .agents/skills/claude-code-docs/README-cn.md
   detected_by: filename match
@@ -112,8 +112,8 @@ manually. This repo's owner has explicitly confirmed the delete list below.
 - path: tmp/chinese_to_english_punctuation.py
   reason: Scratch localization script; superseded by the chinese-english-punctuation skill. Almost certainly delete.
   default: ask
-- path: tmp/concept-mapping/
-  reason: OLD, pre-standard concept-mapping draft (unnumbered files) superseded by .claude/skills/concept-mapping/ref/01-08. Delete unless kept as history.
+- path: tmp/coding-agent-concept-mapping/
+  reason: OLD, pre-standard coding-agent-concept-mapping draft (unnumbered files) superseded by .claude/skills/coding-agent-concept-mapping/ref/01-08. Delete unless kept as history.
   default: ask
 - path: tmp/port-claude-code-to-gemini-cli/  and  tmp/port-claude-code-to-gemini-cli-checker/
   reason: Experimental 4th-tool (Gemini CLI) port prototype not promoted to .claude/skills/. May be kept as a "next step" teaser or deleted as scratch.
@@ -150,9 +150,9 @@ first-person past tense. The user runs each `git add`/`git commit` themselves.
 | 7 | `.claude/skills/antigravity-docs-index-builder/` | `Add antigravity-docs index builder` | Must exist before antigravity-docs, which reads its manifest. |
 | 8 | `.claude/skills/antigravity-docs/` (incl. `references/docs-manifest.json`) | `Add antigravity-docs expert backed by a local manifest` | Depends on the builder's manifest output. |
 | 9 | `.agents/skills/` | `Mirror documentation experts to the tool-neutral .agents path` | Depends on the three experts existing first. |
-| 10 | `.claude/skills/concept-mapping-builder/` | `Add concept-mapping-builder and the mapping-file standard` | Layer-2 generator; precedes the concept files. |
-| 11 | `.claude/skills/concept-mapping/` (SKILL.md + `ref/00-08`) | `Add concept-mapping knowledge base across the three tools` | Layer-2 output; every cell sourced from the Layer-1 experts. |
-| 12 | `.claude/skills/port-skill-generator/` | `Add port-skill-generator with port + checker templates` | Layer-3 generator; the 12 ports are stamped from it. |
+| 10 | `.claude/skills/coding-agent-concept-mapping-builder/` | `Add coding-agent-concept-mapping-builder and the mapping-file standard` | Layer-2 generator; precedes the concept files. |
+| 11 | `.claude/skills/coding-agent-concept-mapping/` (SKILL.md + `ref/00-08`) | `Add coding-agent-concept-mapping knowledge base across the three tools` | Layer-2 output; every cell sourced from the Layer-1 experts. |
+| 12 | `.claude/skills/port-coding-agent-skill-generator/` | `Add port-coding-agent-skill-generator with port + checker templates` | Layer-3 generator; the 12 ports are stamped from it. |
 | 13 | `.claude/skills/port-antigravity-to-*/`, `port-claude-code-to-*/`, `port-codex-to-*/` (all 12) | `Generate the twelve port and checker migration skills` | Layer-3 output; reads the concept list from Layer 2 at runtime. |
 | 14 | `.claude/skills/chinese-english-punctuation/`, `.claude/skills/markdown-style/` *(if kept)* | `Add doc-hygiene helper skills` | Peripheral; no dependents. |
 | 15 | `.claude/skills/lesson-smith-learn-this-project-meta/` *(if kept as bonus)* | `Add the learn-this-project meta-skill (portfolio bonus)` | Standalone; the "show your work" extra. |
@@ -176,7 +176,7 @@ first-person past tense. The user runs each `git add`/`git commit` themselves.
   length: 60-90 words
 
 - section: The three layers
-  goal: Explain the doc-experts → concept-mapping → port-skills stack at a glance.
+  goal: Explain the doc-experts → coding-agent-concept-mapping → port-skills stack at a glance.
   questions:
     - "How would you describe the three layers to a peer in three sentences?"
     - "What's the one design idea that repeats in all three?"
@@ -242,7 +242,7 @@ Assume a reader scanning with "did this come from a tutorial?"
 ### Suspicious-symmetry flags (heuristic, not a hard rule)
 🟡 MEDIUM: the 12 `port-*/SKILL.md` are template-generated and will share identical
 structure — this is legitimate here (it's the point), but a hostile reader may read
-it as machine-generated. Mitigation: the `port-skill-generator` + templates are
+it as machine-generated. Mitigation: the `port-coding-agent-skill-generator` + templates are
 visible and explain the symmetry, so keep them in the repo. Likewise the three
 doc-expert `SKILL.md`s share a procedure shape; that's by design and defensible.
 

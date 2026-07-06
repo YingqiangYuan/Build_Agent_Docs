@@ -42,7 +42,7 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
   pair is checked by eyeballing for stray `{{`.
 - **Senior-engineer target state.** A `tests/` suite that: (a) asserts every
   generated `port-*/SKILL.md` contains **zero** `{{` placeholders and resolves
-  the right slugs; (b) validates every `concept-mapping/ref/0X-*.md` against
+  the right slugs; (b) validates every `coding-agent-concept-mapping/ref/0X-*.md` against
   `mapping-file-standard.md` (has the `Porting-in notes` row, a `Sources`
   section, the fixed column order); (c) replays **recorded fixtures** of
   `llms.txt` / a manifest so a doc expert's page-selection logic is testable
@@ -85,11 +85,11 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
 
 ### 3. Scale to a 4th agent (Gemini CLI)
 - **Current state.** The roster is **deliberately hardcoded** in
-  `port-skill-generator` and `mapping-file-standard.md` § 2 (Claude Code / Codex /
+  `port-coding-agent-skill-generator` and `mapping-file-standard.md` § 2 (Claude Code / Codex /
   Antigravity). An experimental `tmp/port-claude-code-to-gemini-cli/` exists but
   isn't promoted, and there is no `gemini-cli-docs` expert.
 - **Senior-engineer target state.** Add `gemini-cli-docs` (Layer 1), add a
-  Gemini column to every `concept-mapping/ref/0X-*.md` (Layer 2), extend the
+  Gemini column to every `coding-agent-concept-mapping/ref/0X-*.md` (Layer 2), extend the
   generator roster to make all new port directions generatable (Layer 3). This is
   the true test of the architecture: adding a tool should touch the *generators*
   and *concept files*, never the 12 generated skills.
@@ -103,7 +103,7 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
   index (repeat the `examples/02` discover-then-verify move); the O(N)
   porting-in-notes trick so the new column doesn't explode the tables.
 - **Learning path.** Re-read `examples/02` (discover→verify→encode→test) → apply
-  it to Gemini CLI docs → then `concept-mapping-builder` to add the column.
+  it to Gemini CLI docs → then `coding-agent-concept-mapping-builder` to add the column.
 
 ### 4. Concept coverage (Layer 2 depth)
 - **Current state.** Concepts `01`–`08` exist (project prompt, settings, skills,
@@ -119,7 +119,7 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
 - **Knowledge prerequisites.** Each tool's docs for the new concept (via the
   Layer 1 experts); the mapping-file standard's sourcing + `No equivalent` rules.
 - **Learning path.** `mapping-file-standard.md` → an existing rich file like
-  `05-hooks.md` as the worked example → `concept-mapping-builder` procedure.
+  `05-hooks.md` as the worked example → `coding-agent-concept-mapping-builder` procedure.
 
 ### 5. Packaging / distribution maturity
 - **Current state.** Consumed by copying the repo; skills are mirrored to
@@ -158,9 +158,9 @@ Edit this file directly when you spot inaccuracies. Re-run the meta-skill with
   `tmp/port-claude-code-to-gemini-cli/` and `...-checker/` exist but are absent
   from `.claude/skills/`. Hypothesis: a 4th tool was prototyped, then deferred
   until the concept map has a Gemini column.
-- **The concept map was refactored once.** Evidence: `tmp/concept-mapping/ref/`
+- **The concept map was refactored once.** Evidence: `tmp/coding-agent-concept-mapping/ref/`
   holds an *older, unnumbered* set (`hooks.md`, `skills.md`, …) superseded by the
-  numbered `01–08` scheme under `.claude/skills/concept-mapping/ref/`. Hypothesis:
+  numbered `01–08` scheme under `.claude/skills/coding-agent-concept-mapping/ref/`. Hypothesis:
   the `mapping-file-standard.md` (numbering + fixed columns) was introduced after
   a first hand-written draft, and the draft was left in `tmp/`.
 - **A localization pass was automated.** Evidence:

@@ -1,6 +1,6 @@
 ---
 name: port-claude-code-to-antigravity-checker
-description: Read-only review of how completely a project's Claude Code configuration has been ported to Antigravity. Scans both sides, compares them against the concept-mapping knowledge base, and writes a gap report to tmp/review-port-claude-code-to-antigravity.md. Makes no changes to the project config. Use to audit a Claude Code to Antigravity migration.
+description: Read-only review of how completely a project's Claude Code configuration has been ported to Antigravity. Scans both sides, compares them against the coding-agent-concept-mapping knowledge base, and writes a gap report to tmp/review-port-claude-code-to-antigravity.md. Makes no changes to the project config. Use to audit a Claude Code to Antigravity migration.
 argument-hint: [project path]
 allowed-tools: Read, Write, Glob, Grep, Skill
 ---
@@ -28,16 +28,16 @@ The set of portable configuration concepts (project prompt, settings, skills,
 custom commands, hooks, MCP servers, subagents, permissions, and more) grows over
 time. Never rely on a list baked into this skill. The authoritative, current list
 lives in the concept mapping knowledge base, which you read fresh every run. The
-`../concept-mapping/...` paths below are relative to this skill's own directory in
+`../coding-agent-concept-mapping/...` paths below are relative to this skill's own directory in
 the toolkit repo, not to the project being reviewed.
 
 - **Concept roster plus each agent's primary file or location:**
-  `../concept-mapping/ref/00-context-index.md`. Every concept it lists is in
+  `../coding-agent-concept-mapping/ref/00-context-index.md`. Every concept it lists is in
   scope. Its per concept table names the Claude Code and Antigravity
   file or location.
 - **Detailed mapping and porting-in notes for one concept:** the detail file
-  `../concept-mapping/ref/XY-concept-name.md` linked from the index, or invoke
-  the `concept-mapping` skill with the concept name.
+  `../coding-agent-concept-mapping/ref/XY-concept-name.md` linked from the index, or invoke
+  the `coding-agent-concept-mapping` skill with the concept name.
 
 If a concept is not in the index, it has not been mapped yet. List it under
 skipped concepts in the report; do not invent a mapping.
@@ -51,7 +51,7 @@ All scanning stays inside it, and the only file you write is the report.
 
 ### 2. Load the concept roster
 
-Read `../concept-mapping/ref/00-context-index.md`. For each concept, note the
+Read `../coding-agent-concept-mapping/ref/00-context-index.md`. For each concept, note the
 Claude Code and Antigravity primary file or location from its table. This
 roster is never hardcoded; it comes from the index every run.
 
@@ -65,7 +65,7 @@ exists on the target side.
 ### 4. Map and compare
 
 For every concept present on the source side, open its detail file
-`../concept-mapping/ref/XY-concept-name.md` (or invoke `concept-mapping` with the
+`../coding-agent-concept-mapping/ref/XY-concept-name.md` (or invoke `coding-agent-concept-mapping` with the
 concept name) and determine what the Antigravity config should contain per the
 mapping and the `Porting-in notes`. Compare that against what the target side
 actually has. Consult the `antigravity-docs` skill when you need current
@@ -121,7 +121,7 @@ of the counts. Do not apply any fix.
 - **The report path is fixed:** `tmp/review-port-claude-code-to-antigravity.md`, overwritten
   each run.
 - **The concept list comes from the index, never from this skill.** Re-read
-  `../concept-mapping/ref/00-context-index.md` every run.
+  `../coding-agent-concept-mapping/ref/00-context-index.md` every run.
 - **Suggest, do not apply.** Every gap gets a described fix and a priority, with
   no edits to the project.
 - **Ground target details in `antigravity-docs`.** Do not judge a gap from

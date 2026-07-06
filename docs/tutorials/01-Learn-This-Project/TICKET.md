@@ -12,11 +12,11 @@ Track your progress absorbing this repo's core skill: building a documentation e
 - [ ] Clone the repo and switch to the `01-Learn-This-Project` branch
 - [ ] Open the repo in Claude Code and confirm the skills load — run `/claude-code-docs` with any question and verify it fetches a live doc URL and cites it
 - [ ] (Optional) Bootstrap the Python scaffolding: `mise install && mise run venv-create && mise run inst` — note this is NOT required to use the skills
-- [ ] Confirm your run-list from `docs/learn-this-project/02-runbook.md` § B: the things you actually *invoke* are the skills (`/claude-code-docs`, `/codex-docs`, `/antigravity-docs`, `/concept-mapping`, `/port-skill-generator`, the 12 `port-*` skills) — not Python scripts
+- [ ] Confirm your run-list from `docs/learn-this-project/02-runbook.md` § B: the things you actually *invoke* are the skills (`/claude-code-docs`, `/codex-docs`, `/antigravity-docs`, `/coding-agent-concept-mapping`, `/port-coding-agent-skill-generator`, the 12 `port-*` skills) — not Python scripts
 
 ### Absorb (learn the content)
 - [ ] Run `/learn-this-project-absorb` in **Orient mode** for the high-level map and the `files to READ` vs `files to RUN/DO` lists
-- [ ] Work through the run-list yourself: invoke each layer's skills and read what they return (ask a doc expert about a page you've never seen; run `/concept-mapping` on a concept; read a `port-*/SKILL.md`)
+- [ ] Work through the run-list yourself: invoke each layer's skills and read what they return (ask a doc expert about a page you've never seen; run `/coding-agent-concept-mapping` on a concept; read a `port-*/SKILL.md`)
 - [ ] Come back to `/learn-this-project-absorb` in **Context-dive mode** whenever a specific `SKILL.md`, `ref/` file, or procedure needs unpacking
 - [ ] Knowhow: explain **why all three doc experts re-read their index fresh every run instead of caching page content** — and what would silently break if they cached (`01-knowhow-inventory.md#claude-code-docs`)
 - [ ] Knowhow: explain **why `antigravity-docs` uses a local `docs-manifest.json` + an index-builder** while `claude-code-docs` and `codex-docs` fetch `llms.txt` live (the SPA constraint) (`01-knowhow-inventory.md#antigravity-docs`)

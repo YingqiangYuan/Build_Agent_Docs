@@ -26,7 +26,7 @@ stale training data. The payload is a **three-layer stack**:
 1. **Layer 1 — documentation experts.** One skill per tool (`claude-code-docs`,
    `codex-docs`, `antigravity-docs`) that discovers the tool's official docs
    index and lazy-fetches only the pages a question needs.
-2. **Layer 2 — concept alignment.** `concept-mapping` — a knowledge base that
+2. **Layer 2 — concept alignment.** `coding-agent-concept-mapping` — a knowledge base that
    lines up the *same* configuration concept (skills, hooks, MCP, permissions…)
    across all three tools, so depth learned on one tool transfers precisely to
    the others.
@@ -38,7 +38,7 @@ The repeated design move — visible in all three layers — is **"don't build t
 answer, build the mechanism that keeps producing the answer, and always pull the
 layer below fresh."** Each layer has a *generator* that comes first and a
 *concrete output* that comes second: `write-agent-skill`→the 3 doc experts,
-`concept-mapping-builder`→the concept files, `port-skill-generator`→the 12 ports.
+`coding-agent-concept-mapping-builder`→the concept files, `port-coding-agent-skill-generator`→the 12 ports.
 
 **Who uses it:** developers juggling multiple coding agents; the repo's author
 as an interview portfolio piece (the `examples/` folder is a ready-to-tell
@@ -52,10 +52,10 @@ interview story); Agent-Skill authors wanting a reference implementation.
    (work backward)  │ lock-in free                                 │
                     └───────────────────────▲─────────────────────┘
                                              │ delivers
-  LAYER 3  port-skill-generator ──generates──> 12 port-* skills (doer + checker)
+  LAYER 3  port-coding-agent-skill-generator ──generates──> 12 port-* skills (doer + checker)
    (do)     (2 templates)                        │ reads concept list fresh
                                                   ▼
-  LAYER 2  concept-mapping-builder ──writes──> concept-mapping/ref/*.md (00 index + 01–08)
+  LAYER 2  coding-agent-concept-mapping-builder ──writes──> coding-agent-concept-mapping/ref/*.md (00 index + 01–08)
    (align)  (mapping-file-standard)              │ every cell verified against ↓
                                                   ▼
   LAYER 1  write-agent-skill ──method──> claude-code-docs / codex-docs / antigravity-docs
@@ -144,13 +144,13 @@ automatically instead of needing 12 files hand-synced.
 
 ### Layer 2 — Concept alignment
 
-#### `concept-mapping`
+#### `coding-agent-concept-mapping`
 - **What.** Read-only knowledge base answering "how does concept X map across
   Claude Code, Codex, and Antigravity?" One file per concept.
 - **Why.** Three separate doc experts each mind their own turf; none remembers
   how the three line up. This fills that gap so learning transfers by *precise*
   analogy, not guesswork — and records the conclusion so nobody re-stitches it.
-- **Key files.** `.claude/skills/concept-mapping/SKILL.md`; `ref/00-context-index.md`
+- **Key files.** `.claude/skills/coding-agent-concept-mapping/SKILL.md`; `ref/00-context-index.md`
   (navigational rollup); detail files `ref/01-project-prompt.md`,
   `02-project-settings.md`, `03-skills.md`, `04-custom-commands.md`, `05-hooks.md`,
   `06-mcp-servers.md`, `07-subagents.md`, `08-permissions.md`.
@@ -159,13 +159,13 @@ automatically instead of needing 12 files hand-synced.
   question from memory when a detail file exists. Do not add facts here by hand;
   that is the builder's job.
 
-#### `concept-mapping-builder`
-- **What.** Authors and maintains the `concept-mapping` files against a fixed
+#### `coding-agent-concept-mapping-builder`
+- **What.** Authors and maintains the `coding-agent-concept-mapping` files against a fixed
   standard.
 - **Why.** Concept files must all read as if one author wrote them (same column
   order, terminology, sourcing discipline). A builder-with-a-standard guarantees
   that; hand-writing would drift. Generator-before-output again.
-- **Key files.** `.claude/skills/concept-mapping-builder/SKILL.md`;
+- **Key files.** `.claude/skills/coding-agent-concept-mapping-builder/SKILL.md`;
   `ref/mapping-file-standard.md` (the authoritative shape); `ref/concept-file-template.md`.
 - **Depends on.** `Read`, `Write`, `Edit`, `WebFetch`, `Skill` (it calls the
   Layer 1 doc skills to source every cell).
@@ -184,19 +184,19 @@ down to N. (See `ref/mapping-file-standard.md`.)
 
 ### Layer 3 — Migration
 
-#### `port-skill-generator`
+#### `port-coding-agent-skill-generator`
 - **What.** Stamps out both a `port-<source>-to-<target>` (doer) and a
   `port-<source>-to-<target>-checker` (auditor) from two templates.
 - **Why.** 12 near-identical files hand-maintained would drift the instant you
   fix one and forget another. One generator + two templates = single source of
   truth. Third repetition of generator-before-output.
-- **Key files.** `.claude/skills/port-skill-generator/SKILL.md`;
+- **Key files.** `.claude/skills/port-coding-agent-skill-generator/SKILL.md`;
   `ref/port-skill-template.md`; `ref/checker-skill-template.md`.
 - **Depends on.** `Read`, `Write`, `Edit`. `disable-model-invocation: true`
-  (run it explicitly, e.g. `/port-skill-generator cc to cdx`).
+  (run it explicitly, e.g. `/port-coding-agent-skill-generator cc to cdx`).
 - **Gotchas.** The **agent roster is hardcoded** (adding a 4th tool is rare) but
   the **concept list is not** — templates never bake a concept list; generated
-  skills read it fresh from `concept-mapping/ref/00-context-index.md` each run.
+  skills read it fresh from `coding-agent-concept-mapping/ref/00-context-index.md` each run.
   Placeholders: `{{SOURCE_NAME}}`, `{{TARGET_NAME}}`, `{{SOURCE_SLUG}}`,
   `{{TARGET_SLUG}}`, `{{SOURCE_DOCS_SKILL}}`, `{{TARGET_DOCS_SKILL}}`,
   `{{PORT_SKILL_NAME}}`, `{{CHECKER_SKILL_NAME}}`. Verify no `{{` survives a run.
@@ -220,7 +220,7 @@ down to N. (See `ref/mapping-file-standard.md`.)
 ### Supporting / peripheral components
 - **`.agents/skills/` mirror.** `claude-code-docs`, `codex-docs`,
   `antigravity-docs` are mirrored to the tool-neutral `.agents/skills/` path so
-  Codex/Antigravity can discover them too. (See `concept-mapping/ref/03-skills.md`
+  Codex/Antigravity can discover them too. (See `coding-agent-concept-mapping/ref/03-skills.md`
   for why the neutral path exists.)
 - **`chinese-english-punctuation`, `markdown-style`.** Doc-hygiene skills used
   while authoring this repo's bilingual docs.
@@ -238,10 +238,10 @@ down to N. (See `ref/mapping-file-standard.md`.)
   `allowed-tools`, `argument-hint`, and sometimes `disable-model-invocation`.
   Example: `.claude/skills/claude-code-docs/SKILL.md`.
 - **Deny-by-default tools.** Skills request only the tools they need — read-only
-  skills (`concept-mapping`) get `Read`; generators get `Write`/`Edit`.
+  skills (`coding-agent-concept-mapping`) get `Read`; generators get `Write`/`Edit`.
 - **Generator-before-output, three times.** Any place with many similar outputs
   has a single generator + template(s): `write-agent-skill`,
-  `concept-mapping-builder` + `mapping-file-standard.md`, `port-skill-generator`
+  `coding-agent-concept-mapping-builder` + `mapping-file-standard.md`, `port-coding-agent-skill-generator`
   + two templates.
 - **Never from memory.** Layer 1 re-reads live docs; Layer 2 cites `Sources`;
   Layer 3 re-reads the concept index. "Fresh, not cached" is the house rule.
