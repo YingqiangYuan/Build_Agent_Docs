@@ -1,6 +1,6 @@
 ---
-name: concept-mapping-builder
-description: Author and maintain the cross tool concept mapping knowledge base under .claude/skills/concept-mapping/. Use when adding a new concept, refreshing an existing XY-concept-name.md against current docs, or rolling the concept files up into 00-context-index.md. Grounds every claim in the claude-code-docs, codex-docs, and antigravity-docs skills and follows ref/mapping-file-standard.md.
+name: coding-agent-concept-mapping-builder
+description: Author and maintain the cross tool concept mapping knowledge base under .claude/skills/coding-agent-concept-mapping/. Use when adding a new concept, refreshing an existing XY-concept-name.md against current docs, or rolling the concept files up into 00-context-index.md. Grounds every claim in the claude-code-docs, codex-docs, and antigravity-docs skills and follows ref/mapping-file-standard.md.
 argument-hint: [concept name or XY number]
 allowed-tools: Read, Write, Edit, WebFetch, Skill
 ---
@@ -8,10 +8,10 @@ allowed-tools: Read, Write, Edit, WebFetch, Skill
 # Concept Mapping Builder
 
 Builds and maintains the concept mapping knowledge base that lives in the
-sibling skill at `.claude/skills/concept-mapping/`. That knowledge base explains
+sibling skill at `.claude/skills/coding-agent-concept-mapping/`. That knowledge base explains
 how each project level configuration concept in Claude Code maps onto Codex and
 Antigravity, and what to watch when porting a setup between them. This builder is
-how those files get written and kept current. The `concept-mapping` skill only
+how those files get written and kept current. The `coding-agent-concept-mapping` skill only
 reads them at answer time.
 
 If the user passed an argument (`$ARGUMENTS`), treat it as the concept to build
@@ -19,7 +19,7 @@ or update. Otherwise infer it from the conversation, or ask which concept.
 
 ## What it maintains
 
-Two kinds of file, both under `.claude/skills/concept-mapping/ref/`:
+Two kinds of file, both under `.claude/skills/coding-agent-concept-mapping/ref/`:
 
 - `XY-concept-name.md` — one detail file per concept, the real content. This is
   authored or updated first.
@@ -67,7 +67,7 @@ titles and URLs you relied on. They become the `Sources` section.
 
 ### 4. Write or update the detail file first
 
-Author `.claude/skills/concept-mapping/ref/XY-concept-name.md` to the standard.
+Author `.claude/skills/coding-agent-concept-mapping/ref/XY-concept-name.md` to the standard.
 Start from `ref/concept-file-template.md`, fill every cell, delete all comments,
 and record sources. Use `No equivalent` rather than a blank when a tool lacks an
 aspect. When updating, change only what the refreshed docs require and keep the

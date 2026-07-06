@@ -1,6 +1,6 @@
 ---
 name: port-codex-to-antigravity
-description: Port a project's Codex configuration to Antigravity, keeping the Codex files in place. Scans the project for Codex config artifacts, maps each to its Antigravity equivalent using the concept-mapping knowledge base, and creates or edits the matching Antigravity files. Use when migrating a repo from Codex to Antigravity.
+description: Port a project's Codex configuration to Antigravity, keeping the Codex files in place. Scans the project for Codex config artifacts, maps each to its Antigravity equivalent using the coding-agent-concept-mapping knowledge base, and creates or edits the matching Antigravity files. Use when migrating a repo from Codex to Antigravity.
 argument-hint: [project path]
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill
@@ -27,12 +27,12 @@ paths below are relative to this skill's own directory in the toolkit repo, not
 to the project being ported.
 
 - **Concept roster plus each agent's primary file or location:**
-  `../concept-mapping/ref/00-context-index.md`. Every concept it lists is in
+  `../coding-agent-concept-mapping/ref/00-context-index.md`. Every concept it lists is in
   scope. Its per concept table names the Codex and Antigravity
   file or location, so it is both your worklist and your file map.
 - **Detailed mapping and porting-in notes for one concept:** the detail file
-  `../concept-mapping/ref/XY-concept-name.md` linked from the index, or invoke
-  the `concept-mapping` skill with the concept name.
+  `../coding-agent-concept-mapping/ref/XY-concept-name.md` linked from the index, or invoke
+  the `coding-agent-concept-mapping` skill with the concept name.
 
 If a concept is not in the index, it has not been mapped yet. Skip it and note it
 in your report; do not invent a mapping.
@@ -46,7 +46,7 @@ All scanning and all writing stays inside it.
 
 ### 2. Load the concept roster
 
-Read `../concept-mapping/ref/00-context-index.md`. For each concept, note the
+Read `../coding-agent-concept-mapping/ref/00-context-index.md`. For each concept, note the
 Codex primary file or location and the Antigravity primary file or
 location from its table. This roster is never hardcoded; it comes from the index
 every run.
@@ -60,7 +60,7 @@ actually present in this project. Those are the ones to port.
 ### 4. Map each present concept
 
 For every concept found, open its detail file
-`../concept-mapping/ref/XY-concept-name.md` (or invoke `concept-mapping` with the
+`../coding-agent-concept-mapping/ref/XY-concept-name.md` (or invoke `coding-agent-concept-mapping` with the
 concept name) and read its aspect tables and the `Porting-in notes` row for
 Antigravity. When the detail file is thin on a target specific point, consult
 the `antigravity-docs` skill for the current Antigravity file format and
@@ -88,7 +88,7 @@ file was created or edited, and anything skipped, such as an unmapped concept, a
   machine level config.
 - **Never overwrite source files.** Source and target configs coexist.
 - **The concept list comes from the index, never from this skill.** Re-read
-  `../concept-mapping/ref/00-context-index.md` every run.
+  `../coding-agent-concept-mapping/ref/00-context-index.md` every run.
 - **Ground target details in `antigravity-docs`.** When the mapping is thin,
   check the current docs; do not guess field names or paths.
 - **A concept absent from the index is out of scope.** Skip it and report it.

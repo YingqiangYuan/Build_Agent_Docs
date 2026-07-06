@@ -1,11 +1,11 @@
 # Concept Mapping File Standard
 
 This document is the authoritative specification for every file the
-`concept-mapping-builder` skill writes into `.claude/skills/concept-mapping/`.
+`coding-agent-concept-mapping-builder` skill writes into `.claude/skills/coding-agent-concept-mapping/`.
 It exists so that many independent authoring sessions can each produce one
 concept file and still end up with a knowledge base that reads as if a single
 hand wrote it. When a rule here conflicts with habit or with the old
-`tmp/concept-mapping` files, this document wins.
+`tmp/coding-agent-concept-mapping` files, this document wins.
 
 Two kinds of artifact are governed here. The per concept detail files named
 `XY-concept-name.md`, and the single rollup index named `00-context-index.md`.
@@ -68,7 +68,7 @@ tools already present.
 
 ## 3. File layout, naming, and the concept registry
 
-Every file lives under `.claude/skills/concept-mapping/ref/`. Detail files are
+Every file lives under `.claude/skills/coding-agent-concept-mapping/ref/`. Detail files are
 named `XY-concept-name.md`, where `XY` is a two digit zero padded number and
 `concept-name` is lower case kebab case. The number `00` is reserved for the
 index. Concepts take `01` and up, in the order fixed by the registry below.
