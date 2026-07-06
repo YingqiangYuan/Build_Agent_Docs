@@ -9,10 +9,10 @@ Track your progress absorbing this repo's core skill: building a documentation e
 ## Checklist
 
 ### Setup
-- [ ] Clone the repo and switch to the `01-Learn-This-Project` branch
-- [ ] Open the repo in Claude Code and confirm the skills load — run `/claude-code-docs` with any question and verify it fetches a live doc URL and cites it
-- [ ] (Optional) Bootstrap the Python scaffolding: `mise install && mise run venv-create && mise run inst` — note this is NOT required to use the skills
-- [ ] Confirm your run-list from `docs/learn-this-project/02-runbook.md` § B: the things you actually *invoke* are the skills (`/claude-code-docs`, `/codex-docs`, `/antigravity-docs`, `/coding-agent-concept-mapping`, `/port-coding-agent-skill-generator`, the 12 `port-*` skills) — not Python scripts
+- [X] Clone the repo and switch to the `01-Learn-This-Project` branch
+- [X] Open the repo in Claude Code and confirm the skills load — run `/claude-code-docs` with any question and verify it fetches a live doc URL and cites it
+- [X] (Optional) Bootstrap the Python scaffolding: `mise install && mise run venv-create && mise run inst` — note this is NOT required to use the skills
+- [X] Confirm your run-list from `docs/learn-this-project/02-runbook.md` § B: the things you actually *invoke* are the skills (`/claude-code-docs`, `/codex-docs`, `/antigravity-docs`, `/coding-agent-concept-mapping`, `/port-coding-agent-skill-generator`, the 12 `port-*` skills) — not Python scripts
 
 ### Absorb (learn the content)
 - [ ] Run `/learn-this-project-absorb` in **Orient mode** for the high-level map and the `files to READ` vs `files to RUN/DO` lists
@@ -50,11 +50,11 @@ Track your progress absorbing this repo's core skill: building a documentation e
 ### Publish (turn it into a portfolio artifact)
 - [ ] Decide on a new public repo name (pattern: `<firstname>-<lastname>-agent-docs-skill-poc`)
 - [ ] Run `/learn-this-project-publish` in **Transform mode** — the skill walks you through:
-  - [ ] Intake: new repo name + your name
-  - [ ] Delete cardinal teaching artifacts (skill does this with your consent)
-  - [ ] Borderline review (your call on each file — e.g. the `tmp/` Gemini-CLI prototype, the non-meta `lesson-smith-*` skills)
-  - [ ] Generate `tmp/publish-commit-plan.md` (your copy-paste cheat-sheet)
-  - [ ] Co-write your `README.md` in your own voice (D-mode — it asks, you answer, it drafts, you edit)
+- [ ] Intake: new repo name + your name
+- [ ] Delete cardinal teaching artifacts (skill does this with your consent)
+- [ ] Borderline review (your call on each file — e.g. the `tmp/` Gemini-CLI prototype, the non-meta `lesson-smith-*` skills)
+- [ ] Generate `tmp/publish-commit-plan.md` (your copy-paste cheat-sheet)
+- [ ] Co-write your `README.md` in your own voice (D-mode — it asks, you answer, it drafts, you edit)
 - [ ] Verify **Audit mode** returns 0 🔴 HIGH RISK findings before publishing
 - [ ] Create the public GitHub repo yourself (skill won't do this)
 - [ ] Open `tmp/publish-commit-plan.md` and run the 10–15+ commits one at a time
