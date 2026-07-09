@@ -18,14 +18,14 @@ Track your progress absorbing this repo's core skill: building a documentation e
 - [X] Run `/learn-this-project-absorb` in **Orient mode** for the high-level map and the `files to READ` vs `files to RUN/DO` lists
 - [X] Work through the run-list yourself: invoke each layer's skills and read what they return (ask a doc expert about a page you've never seen; run `/coding-agent-concept-mapping` on a concept; read a `port-*/SKILL.md`)
 - [X] Come back to `/learn-this-project-absorb` in **Context-dive mode** whenever a specific `SKILL.md`, `ref/` file, or procedure needs unpacking
-- [ ] Knowhow: explain **why all three doc experts re-read their index fresh every run instead of caching page content** — and what would silently break if they cached (`01-knowhow-inventory.md#claude-code-docs`)
-- [ ] Knowhow: explain **why `antigravity-docs` uses a local `docs-manifest.json` + an index-builder** while `claude-code-docs` and `codex-docs` fetch `llms.txt` live (the SPA constraint) (`01-knowhow-inventory.md#antigravity-docs`)
-- [ ] Knowhow: explain the repeated **"generator first, output second"** move across all three layers, and **why the 12 port skills are generated and split into doer + checker** (`01-knowhow-inventory.md`, `examples/04`)
+- [X] Knowhow: explain **why all three doc experts re-read their index fresh every run instead of caching page content** — and what would silently break if they cached (`01-knowhow-inventory.md#claude-code-docs`)
+- [X] Knowhow: explain **why `antigravity-docs` uses a local `docs-manifest.json` + an index-builder** while `claude-code-docs` and `codex-docs` fetch `llms.txt` live (the SPA constraint) (`01-knowhow-inventory.md#antigravity-docs`)
+- [X] Knowhow: explain the repeated **"generator first, output second"** move across all three layers, and **why the 12 port skills are generated and split into doer + checker** (`01-knowhow-inventory.md`, `examples/04`)
 
 ### Quiz (verify understanding)
-- [ ] Run `/learn-this-project-quiz` in **Bank mode** — clear the floor (no ⚠️ partial / ❌ wrong on a 10-question round)
-- [ ] Use **Open-ended mode** to drill 2–3 topics where you came up shallow (e.g. the O(N) porting-in-notes design, the runtime concept-list read in Layer 3)
-- [ ] (If anything keeps coming up partial, go back to the relevant analysis doc or `SKILL.md`, then re-quiz)
+- [-] Run `/learn-this-project-quiz` in **Bank mode** — clear the floor (no ⚠️ partial / ❌ wrong on a 10-question round)
+- [-] Use **Open-ended mode** to drill 2–3 topics where you came up shallow (e.g. the O(N) porting-in-notes design, the runtime concept-list read in Layer 3)
+- [-] (If anything keeps coming up partial, go back to the relevant analysis doc or `SKILL.md`, then re-quiz)
 
 ### Elevate (see what's beyond)
 - [ ] Run `/learn-this-project-elevate`, explore 1–2 upgrade directions (e.g. automated verification/CI, drift-detection canary, adding a fourth tool like Gemini CLI)
